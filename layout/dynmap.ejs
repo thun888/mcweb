@@ -1,0 +1,30 @@
+<layout html head>
+    <layout html 侧边栏>
+        <layout html 顶栏>
+            <div id="card-container">
+                <div class="mdui-card">
+                    <div class="mdui-card-content">
+                        <p>将跳转到mcmap.hzchu.top</p>
+                    </div>
+                    <div class="mdui-typo-display-2-opacity mdui-text-center" id="countdown">3</div>
+                </div>
+            </div>
+            <style>
+                #card-container {
+                    width: 20%;
+                    margin: 30px auto 0 auto;
+                }
+            </style>
+            <script>
+                var countdownEl = document.getElementById('countdown');
+                var count = 3;
+                var timer = setInterval(function() {
+                    count--;
+                    countdownEl.innerHTML = count;
+                    if (count === 0) {
+                        clearInterval(timer);
+                        window.location.href = 'https://mcmap.hzchu.top';
+                    }
+                }, 1000);
+            </script>
+            <layout html footer>
