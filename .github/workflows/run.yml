@@ -1,0 +1,29 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+    - name: Run main.py
+      run: python main.py
+    - name: Copy dist folder
+      run: cp -r dist/ ${{ github.workspace }}/dist
+    - name: Configure git
+      run: |
+        git config --global user.email "2238342947@qq.com"
+        git config --global user.name "thun888"
+    - name: Commit and push changes
+      run: |
+        git checkout -b dist
+        git add dist/
+        git commit -m "Update dist folder"
+        git push origin dist
