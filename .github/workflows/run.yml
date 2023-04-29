@@ -15,13 +15,9 @@ jobs:
       run: pip install -r requirements.txt
     - name: Run main.py
       run: python main.py
-    - name: Configure git
-      run: |
-        git config --global user.email "2238342947@qq.com"
-        git config --global user.name "thun888"
-    - name: Commit and push changes
-      run: |
-        git checkout -b dist
-        git add dist/
-        git commit -m "Update dist folder"
-        git push origin dist
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.TOKEN }}
+        publish_branch: gh-page
+        publish_dir: ./dist
