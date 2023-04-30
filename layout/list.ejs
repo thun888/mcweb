@@ -1,0 +1,72 @@
+<layout html head>
+    <layout html 侧边栏>
+        <layout html 顶栏>
+            <!-- 到此 -->
+            <div class="mdui-container">
+                <div class="mdui-card">
+                    <div class="mdui-card-header">
+                        <img src="/img/gaoz.png" alt="Ranking Image" class="mdui-card-header-icon mdui-icon material-icons" style="font-size: 30px;">
+                        <div class="mdui-card-header-title">采矿量</div>
+                    </div>
+                    <div class="mdui-card-content">
+                        <div class="mdui-table-fluid">
+                            <table class="mdui-table mdui-table-hoverable">
+                                <thead>
+                                    <tr>
+                                        <th>排名</th>
+                                        <th>玩家名称</th>
+                                        <th>采矿总量</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="scoreboard-body">
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <script>
+                const scoreboardUrl = 'https://127.0.0.1:5001/user/scoreboard';
+                const scoreboardBody = document.getElementById('scoreboard-body');
+
+                fetch(scoreboardUrl)
+                    .then(response => response.json())
+                    .then(scoreboard => {
+                        scoreboard.forEach((player, index) => {
+                            const row = document.createElement('tr');
+                            const rank = document.createElement('td');
+                            const playerName = document.createElement('td');
+                            const pickaxeTotal = document.createElement('td');
+
+                            rank.textContent = index + 1;
+                            playerName.textContent = player.playername;
+                            pickaxeTotal.textContent = player.pickaxe_total;
+
+                            row.appendChild(rank);
+                            row.appendChild(playerName);
+                            row.appendChild(pickaxeTotal);
+
+                            scoreboardBody.appendChild(row);
+                        });
+                    });
+            </script>
+            <style>
+                .mdui-card {
+                    width: 90%;
+                    margin: 30px auto 0 auto;
+                    border-radius: 10px;
+                }
+                
+                .mdui-card-header {
+                    display: flex;
+                    align-items: center;
+                }
+                
+                table {
+                    border-radius: 10px;
+                }
+            </style>
+            </div>
+            <layout html footer>

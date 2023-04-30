@@ -54,6 +54,7 @@ def output(filename,content):
         output_dir = os.path.join('dist')
     elif filename == '404.ejs':
         output_dir = os.path.join('dist')
+        file_name = '404.html'
     else:
         output_dir = os.path.join('dist',os.path.splitext(filename)[0])
     output_file_path = os.path.join(output_dir, file_name)
