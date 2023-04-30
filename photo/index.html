@@ -21,11 +21,10 @@
 
         <div class="mdui-drawer mdui-drawer-close" id="sidebar">
     <div class="mdui-list" mdui-collapse="{accordion: true}">
-
-        <li class="mdui-list-item mdui-ripple">
-            <i class="mdui-list-item-icon mdui-icon material-icons">info</i>
-            <a href="/info/" class="mdui-list-item-content">公告</a>
-        </li>
+        <a href="/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
+            <div class="mdui-list-item-content">首页</div>
+        </a>
         <div class="mdui-collapse-item">
             <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
                 <i class="mdui-list-item-icon mdui-icon material-icons">map</i>
@@ -36,36 +35,35 @@
                 <a href="/dynmap/">
                     <li class="mdui-list-item mdui-ripple">地图</li>
                 </a>
-                <a href="#">
+                <a href="https://share.hzchu.top/MC/dynmap数据">
                     <li class="mdui-list-item mdui-ripple">数据存档</li>
                 </a>
             </ul>
         </div>
-
-        <li class="mdui-list-item mdui-ripple">
+        <!-- <a href="/chatsearch/" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">chat</i>
-            <a href="/chatsearch/" class="mdui-list-item-content">聊天查询</a>
-        </li>
-        <li class="mdui-list-item mdui-ripple">
+            <div class="mdui-list-item-content">聊天查询</div>
+        </a>
+        <a href="/photo/" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">photo</i>
-            <a href="/photo/" class="mdui-list-item-content">相册</a>
-        </li>
-        <li class="mdui-list-item mdui-ripple">
+            <div class="mdui-list-item-content">相册</div>
+        </a> -->
+        <a href="/place/" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">place</i>
-            <a href="/place/" class="mdui-list-item-content">有用の坐标</a>
-        </li>
-        <li class="mdui-list-item mdui-ripple">
+            <div class="mdui-list-item-content">有用の坐标</div>
+        </a>
+        <a href="/list/" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">format_list_numbered</i>
-            <a href="/list/" class="mdui-list-item-content">排行榜</a>
-        </li>
-        <li class="mdui-list-item mdui-ripple">
+            <div class="mdui-list-item-content">排行榜</div>
+        </a>
+        <a href="/events/" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">events</i>
-            <a href="/events/" class="mdui-list-item-content">成就</a>
-        </li>
-        <li class="mdui-list-item mdui-ripple">
+            <div class="mdui-list-item-content">成就</div>
+        </a>
+        <a href="https://mc-help.hzchu.top/" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">help</i>
-            <a href="https://mc-help.hzchu.top/" class="mdui-list-item-content">帮助</a>
-        </li>
+            <div class="mdui-list-item-content">帮助</div>
+        </a>
         <div class="mdui-collapse-item">
             <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
                 <i class="mdui-list-item-icon mdui-icon material-icons">more_horiz</i>
@@ -114,6 +112,9 @@
                 <div class="mdui-container">
                     <div class="content">
                         <!-- Artalk -->
+                        <div class="card">
+                            <p>作为一个公开的相册，我们需要进行人工审核，请私发给Q群管理员，待审核通过后会显示在此处</p>
+                        </div>
                         <div id="Comments"></div>
                         <script>
                             Artalk.init({
@@ -129,6 +130,21 @@
                             #Comments {
                                 width: 90%;
                                 margin: 30px auto 0 auto;
+                            }
+                            
+                            .card {
+                                margin: 30px auto 0 auto;
+                                background-color: #fff;
+                                border-radius: 5px;
+                                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                                padding: 20px;
+                                width: 85%;
+                            }
+                            
+                            .card p {
+                                font-size: 14px;
+                                line-height: 1.5;
+                                margin: 0;
                             }
                         </style>
                     </div>

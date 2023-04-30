@@ -13,13 +13,7 @@
 </head>
 
 <body class="mdui-theme-primary-blue-grey mdui-theme-accent-blue">
-    <!-- CSS -->
-<link href="https://cdn.bootcdn.net/ajax/libs/artalk/2.5.4/Artalk.css" rel="stylesheet">
-
-<!-- JS -->
-<script src="https://cdn.bootcdn.net/ajax/libs/artalk/2.5.4/Artalk.js"></script>
-
-        <div class="mdui-drawer mdui-drawer-close" id="sidebar">
+    <div class="mdui-drawer mdui-drawer-close" id="sidebar">
     <div class="mdui-list" mdui-collapse="{accordion: true}">
         <a href="/" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
@@ -94,7 +88,7 @@
         </a>
     </div>
 </div>
-            <div class="mdui-appbar">
+        <div class="mdui-appbar">
     <div class="mdui-toolbar mdui-color-teal mdui-appbar-scroll-hide">
         <a href="javascript:;" class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar'}">
             <i class="mdui-icon material-icons">menu</i>
@@ -109,47 +103,69 @@
         </a>
     </div>
 </div>
-                <div class="mdui-container">
-                    <div class="content">
-                        <!-- Artalk -->
-                        <div class="card">
-                            <p>每个人均可以在这里上传坐标信息，要求如下：<br>1.写上该坐标所指向的目标（eg:末地门）<br>2.以X/Y/Z的形式写在第二行<br>3.可附上有关信息（文字或图片）</p>
-                        </div>
-                        <div id="Comments"></div>
-                        <script>
-                            Artalk.init({
-                                el: '#Comments', // 绑定元素的 Selector
-                                pageKey: '/place/', // 固定链接 (留空自动获取)
-                                pageTitle: '', // 页面标题 (留空自动获取)
-                                server: 'https://artalk.hzchu.top', // 后端地址
-                                site: 'mcweb', // 你的站点名
-                            })
-                            document.getElementById("titletext").innerHTML = "峰间云海|坐标";
-                        </script>
-
+            <style>
+                body {
+                    background-color: #f5f5f5;
+                }
+                
+                .not-found-container {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    height: 100vh;
+                }
+                
+                .not-found-title {
+                    margin-top: 20px;
+                    font-size: 3rem;
+                    font-weight: 300;
+                    color: #333;
+                    text-align: center;
+                }
+                
+                .not-found-text {
+                    margin-top: 10px;
+                    font-size: 1.5rem;
+                    font-weight: 300;
+                    color: #666;
+                    text-align: center;
+                }
+                
+                .not-found-button {
+                    margin-top: 20px;
+                    background-color: #fdb62f;
+                    color: #000;
+                    border: none;
+                    border-radius: 6px;
+                    border: 2px solid #000;
+                    font-size: 1.2rem;
+                    font-weight: 500;
+                    padding: 10px 20px;
+                    transition: all 0.3s;
+                }
+                
+                .not-found-button:hover {
+                    background-color: #fdb62f;
+                    cursor: pointer;
+                }
+                
+                #error {
+                    width: 30vw;
+                    max-height: 150px;
+                    margin-bottom: 2rem;
+                }
+            </style>
+            <div class="mdui-container">
+                <div class="content">
+                    <div class="not-found-container">
+                        <img id="error" src="/404.svg" alt="404">
+                        <h1 class="not-found-title">404</h1>
+                        <p class="not-found-text">啊哦，您访问的页面不存在</p>
+                        <button class="not-found-button mdui-ripple" onclick="window.history.back()">返回上一页</button>
                     </div>
                 </div>
-                <style>
-                    #Comments {
-                        width: 90%;
-                        margin: 30px auto 0 auto;
-                    }
-                    
-                    .card {
-                        margin: 30px auto 0 auto;
-                        background-color: #fff;
-                        border-radius: 5px;
-                        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-                        padding: 20px;
-                        width: 85%;
-                    }
-                    
-                    .card p {
-                        font-size: 14px;
-                        line-height: 1.5;
-                        margin: 0;
-                    }
-                </style>
-                <footer>
+            </div>
+            <footer>
 </footer>
 </body>
