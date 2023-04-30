@@ -1,0 +1,28 @@
+<layout html head>
+    <layout html artalk>
+
+        <layout html 侧边栏>
+            <layout html 顶栏>
+                <div class="mdui-container">
+                    <div class="content">
+                        <!-- Artalk -->
+                        <div id="Comments"></div>
+                        <script>
+                            Artalk.init({
+                                el: '#Comments', // 绑定元素的 Selector
+                                pageKey: '/photo/', // 固定链接 (留空自动获取)
+                                pageTitle: '', // 页面标题 (留空自动获取)
+                                server: 'https://artalk.hzchu.top', // 后端地址
+                                site: 'mcweb', // 你的站点名
+                            })
+                            document.getElementById("titletext").innerHTML = "峰间云海|相册";
+                        </script>
+                        <style>
+                            #Comments {
+                                width: 90%;
+                                margin: 30px auto 0 auto;
+                            }
+                        </style>
+                    </div>
+                </div>
+                <layout html footer>

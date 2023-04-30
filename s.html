@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>McWeb</title>
+    <link rel="stylesheet" href="asstes/css/mdui.css">
+    <script src="asstes/js/mdui.js"></script>
+    <script src="asstes/js/jquery.min.js"></script>
+
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+</head>
+
+<body class="mdui-theme-primary-blue-grey mdui-theme-accent-blue">
+    <!-- CSS -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/artalk/2.5.4/Artalk.css" rel="stylesheet">
+
+    <!-- JS -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/artalk/2.5.4/Artalk.js"></script>
+
+    <div class="mdui-drawer mdui-drawer-close" id="sidebar">
+        <div class="mdui-list" mdui-collapse="{accordion: true}">
+
+            <li class="mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">info</i>
+                <a href="/info/" class="mdui-list-item-content">公告</a>
+            </li>
+            <div class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <i class="mdui-list-item-icon mdui-icon material-icons">map</i>
+                    <div class="mdui-list-item-content">卫星地图</div>
+                    <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+                </div>
+                <ul class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    <a href="/dynmap/">
+                        <li class="mdui-list-item mdui-ripple">地图</li>
+                    </a>
+                    <a href="#">
+                        <li class="mdui-list-item mdui-ripple">数据存档</li>
+                    </a>
+                </ul>
+            </div>
+
+            <li class="mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">chat</i>
+                <a href="/chatsearch/" class="mdui-list-item-content">聊天查询</a>
+            </li>
+            <li class="mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">photo</i>
+                <a href="/photo/" class="mdui-list-item-content">相册</a>
+            </li>
+            <li class="mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">place</i>
+                <a href="/place/" class="mdui-list-item-content">有用の坐标</a>
+            </li>
+            <li class="mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">format_list_numbered</i>
+                <a href="/list/" class="mdui-list-item-content">排行榜</a>
+            </li>
+            <li class="mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">events</i>
+                <a href="/events/" class="mdui-list-item-content">成就</a>
+            </li>
+            <li class="mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">help</i>
+                <a href="https://mc-help.hzchu.top/" class="mdui-list-item-content">帮助</a>
+            </li>
+            <div class="mdui-collapse-item">
+                <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                    <i class="mdui-list-item-icon mdui-icon material-icons">more_horiz</i>
+                    <div class="mdui-list-item-content">更多</div>
+                    <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+                </div>
+                <ul class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                    <a href="/admin/">
+                        <li class="mdui-list-item mdui-ripple">管理</li>
+                    </a>
+                    <a href="/status/">
+                        <li class="mdui-list-item mdui-ripple">服务器状态</li>
+                    </a>
+                </ul>
+
+            </div>
+            <a href="/about/" class="mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">info</i>
+                <div class="mdui-list-item-content">关于</div>
+            </a>
+            <a href="/fb/" class="mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">feedback</i>
+                <div class="mdui-list-item-content">反馈</div>
+            </a>
+            <a href="https://jq.qq.com/?_wv=1027&k=erVXhRym" class="mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">group</i>
+                <div class="mdui-list-item-content">QQ群入口</div>
+            </a>
+        </div>
+    </div>
+    <div class="mdui-appbar">
+        <div class="mdui-toolbar mdui-color-teal mdui-appbar-scroll-hide">
+            <a href="javascript:;" class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar'}">
+                <i class="mdui-icon material-icons">menu</i>
+            </a>
+            <a href="javascript:;" class="mdui-typo-headline" id="titletext">峰间云海</a>
+            <div class="mdui-toolbar-spacer"></div>
+            <a href="/" class="mdui-btn mdui-btn-icon">
+                <i class="mdui-icon material-icons">home</i>
+            </a>
+            <a href="javascript:location.reload();" class="mdui-btn mdui-btn-icon">
+                <i class="mdui-icon material-icons">refresh</i>
+            </a>
+        </div>
+    </div>
+    <div class="mdui-container">
+        <div class="content">
+            <!-- Artalk -->
+            <div class="card">
+                <p>请认真填写下述内容，<br>邮箱仅用于接受我们的回复。</p>
+            </div>
+            <div id="Comments"></div>
+            <script>
+                Artalk.init({
+                    el: '#Comments', // 绑定元素的 Selector
+                    pageKey: '/photo/', // 固定链接 (留空自动获取)
+                    pageTitle: '', // 页面标题 (留空自动获取)
+                    server: 'https://artalk.hzchu.top', // 后端地址
+                    site: 'mcweb', // 你的站点名
+                })
+                document.getElementById("titletext").innerHTML = "峰间云海|反馈";
+            </script>
+
+        </div>
+    </div>
+    <style>
+        #Comments {
+            width: 90%;
+            margin: 30px auto 0 auto;
+        }
+        
+        .card {
+            margin: 30px auto 0 auto;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 85%;
+        }
+        
+        .card p {
+            font-size: 14px;
+            line-height: 1.5;
+            margin: 0;
+        }
+    </style>
+    <footer>
+    </footer>
+</body>

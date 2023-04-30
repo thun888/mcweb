@@ -1,0 +1,47 @@
+<layout html head>
+    <layout html artalk>
+
+        <layout html 侧边栏>
+            <layout html 顶栏>
+                <div class="mdui-container">
+                    <div class="content">
+                        <!-- Artalk -->
+                        <div class="card">
+                            <p>请认真填写下述内容，<br>邮箱仅用于接受我们的回复。</p>
+                        </div>
+                        <div id="Comments"></div>
+                        <script>
+                            Artalk.init({
+                                el: '#Comments', // 绑定元素的 Selector
+                                pageKey: '/fb/', // 固定链接 (留空自动获取)
+                                pageTitle: '', // 页面标题 (留空自动获取)
+                                server: 'https://artalk.hzchu.top', // 后端地址
+                                site: 'mcweb', // 你的站点名
+                            })
+                            document.getElementById("titletext").innerHTML = "峰间云海|反馈";
+                        </script>
+
+                    </div>
+                </div>
+                <style>
+                    #Comments {
+                        width: 90%;
+                        margin: 30px auto 0 auto;
+                    }
+                    
+                    .card {
+                        margin: 30px auto 0 auto;
+                        background-color: #fff;
+                        border-radius: 5px;
+                        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                        padding: 20px;
+                        width: 85%;
+                    }
+                    
+                    .card p {
+                        font-size: 14px;
+                        line-height: 1.5;
+                        margin: 0;
+                    }
+                </style>
+                <layout html footer>
