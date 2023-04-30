@@ -40,7 +40,7 @@
 
     <script>
         function updateStatus() {
-            $.get('http://127.0.0.1:5000/server/status', function(data) {
+            $.get('https://homeip.hzchu.top:5001/server/status', function(data) {
                 $('#cpu-progress .mdui-progress-determinate').css('width', data.usage.cpu + '%');
                 $('#mem-progress .mdui-progress-determinate').css('width', data.usage.mem + '%');
                 $('#cpu-percentage').text(data.usage.cpu.toFixed(1) + '%');
