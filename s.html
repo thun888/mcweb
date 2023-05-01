@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>McWeb</title>
-    <link rel="stylesheet" href="/asstes/css/mdui.css">
-    <script src="/asstes/js/mdui.js"></script>
-    <script src="/asstes/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="asstes/css/mdui.css">
+    <script src="asstes/js/mdui.js"></script>
+    <script src="asstes/js/jquery.min.js"></script>
 
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
 </head>
@@ -29,7 +29,7 @@
                     <a href="/dynmap/">
                         <li class="mdui-list-item mdui-ripple">地图</li>
                     </a>
-                    <a href="#">
+                    <a href="https://share.hzchu.top/MC/dynmap数据/">
                         <li class="mdui-list-item mdui-ripple">数据存档</li>
                     </a>
                 </ul>
@@ -37,11 +37,11 @@
             <!-- <a href="/chatsearch/" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">chat</i>
             <div class="mdui-list-item-content">聊天查询</div>
-        </a>
-        <a href="/photo/" class="mdui-list-item mdui-ripple">
-            <i class="mdui-list-item-icon mdui-icon material-icons">photo</i>
-            <div class="mdui-list-item-content">相册</div>
         </a> -->
+            <a href="/photo/" class="mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">photo</i>
+                <div class="mdui-list-item-content">相册</div>
+            </a>
             <a href="/place/" class="mdui-list-item mdui-ripple">
                 <i class="mdui-list-item-icon mdui-icon material-icons">place</i>
                 <div class="mdui-list-item-content">有用の坐标</div>
@@ -50,10 +50,10 @@
                 <i class="mdui-list-item-icon mdui-icon material-icons">format_list_numbered</i>
                 <div class="mdui-list-item-content">排行榜</div>
             </a>
-            <a href="/events/" class="mdui-list-item mdui-ripple">
-                <i class="mdui-list-item-icon mdui-icon material-icons">events</i>
-                <div class="mdui-list-item-content">成就</div>
-            </a>
+            <!-- <a href="/events/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">events</i>
+            <div class="mdui-list-item-content">成就</div>
+        </a> -->
             <a href="https://mc-help.hzchu.top/" class="mdui-list-item mdui-ripple">
                 <i class="mdui-list-item-icon mdui-icon material-icons">help</i>
                 <div class="mdui-list-item-content">帮助</div>
@@ -103,73 +103,137 @@
             </a>
         </div>
     </div>
+    <!-- 到此 -->
+    <!-- CSS -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/artalk/2.5.4/Artalk.css" rel="stylesheet">
+
+    <!-- JS -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/artalk/2.5.4/Artalk.js"></script>
     <div class="mdui-container">
         <div class="mdui-card">
-            <div class="mdui-card-header">
-                <img src="asstes/img/gaoz.png" alt="Ranking Image" class="mdui-card-header-icon mdui-icon material-icons" style="font-size: 30px;">
-                <div class="mdui-card-header-title">采矿量</div>
-            </div>
-            <div class="mdui-card-content">
-                <div class="mdui-table-fluid">
-                    <table class="mdui-table mdui-table-hoverable">
-                        <thead>
-                            <tr>
-                                <th>排名</th>
-                                <th>玩家名称</th>
-                                <th>采矿总量</th>
-                            </tr>
-                        </thead>
-                        <tbody id="scoreboard-body">
-                        </tbody>
-                    </table>
+            <div class="mdui-card-header" id="logoheader">
+                <img src="asstes/img/logo.jpg" alt="logo" class="mdui-card-header-icon mdui-icon material-icons" id="logo">
+                <div class="mdui-card-header-title" id="logotext">
+                    <h2>峰间云海</h2>
+                    <p>一个纯生存服务器</p>
                 </div>
             </div>
+            <div class="mdui-card-content">
+                <!-- <div class="mdui-table-fluid">
+                            <table class="mdui-table mdui-table-hoverable">
+                                <thead>
+                                    <tr>
+                                        <th>排名</th>
+                                        <th>玩家名称</th>
+                                        <th>采矿总量</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="scoreboard-body">
+                                </tbody>
+                            </table>
+                        </div> -->
+            </div>
         </div>
+        <div class="mdui-card">
+            <div class="mdui-card-header">
+                <div class="mdui-card-header-title" id="item">
+                    <h3><i class="mdui-icon material-icons mdui-list-item-icon">notifications_none</i>
+                        <a href="/?mode=admin">公告</a></h3>
+                </div>
+            </div>
+            <div class="mdui-card-content">
+                <div id="Comments"></div>
 
+            </div>
+        </div>
     </div>
-
     <script>
-        const scoreboardUrl = 'https://127.0.0.1:5001/user/scoreboard';
-        const scoreboardBody = document.getElementById('scoreboard-body');
+        Artalk.init({
+                el: '#Comments', // 绑定元素的 Selector
+                pageKey: '/', // 固定链接 (留空自动获取)
+                pageTitle: '', // 页面标题 (留空自动获取)
+                server: 'https://artalk.hzchu.top', // 后端地址
+                site: 'mcweb', // 你的站点名
+                voteDown: 'true',
+                //占位符
+            })
+            // 获取URL参数
+        const urlParams = new URLSearchParams(window.location.search);
+        const isAdminMode = urlParams.get('mode') === 'admin';
 
-        fetch(scoreboardUrl)
-            .then(response => response.json())
-            .then(scoreboard => {
-                scoreboard.forEach((player, index) => {
-                    const row = document.createElement('tr');
-                    const rank = document.createElement('td');
-                    const playerName = document.createElement('td');
-                    const pickaxeTotal = document.createElement('td');
+        // 根据URL参数隐藏/显示元素
+        if (!isAdminMode) {
+            document.querySelector('.atk-main-editor').style.display = 'none';
+            document.querySelector('.atk-list-header').style.display = 'none';
+            document.querySelector('.atk-list-footer').style.display = 'none';
+        }
 
-                    rank.textContent = index + 1;
-                    playerName.textContent = player.playername;
-                    pickaxeTotal.textContent = player.pickaxe_total;
-
-                    row.appendChild(rank);
-                    row.appendChild(playerName);
-                    row.appendChild(pickaxeTotal);
-
-                    scoreboardBody.appendChild(row);
-                });
-            });
+        document.getElementById("titletext").innerHTML = "峰间云海|首页";
     </script>
     <style>
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
         .mdui-card {
             width: 90%;
-            margin: 30px auto 0 auto;
+            margin: 50px auto 0 auto;
             border-radius: 10px;
         }
         
-        .mdui-card-header {
+        #logoheader {
             display: flex;
+            height: 100px;
             align-items: center;
         }
         
         table {
             border-radius: 10px;
         }
+        
+        #logotext {
+            margin: 30px 30% 10px;
+        }
+        
+        #item {
+            margin: -10px 0px 0px -5px;
+        }
+        
+        @media (max-width: 680px) {
+            #logotext {
+                margin: 30px 20% 10px;
+            }
+        }
+        
+        @media (max-width: 450px) {
+            #logotext {
+                margin: 30px 10% 10px;
+            }
+        }
+        
+        @media (max-width: 360px) {
+            #logotext {
+                display: none;
+            }
+        }
+        
+        #logo {
+            width: 104px;
+            margin: auto 0 0 0;
+        }
     </style>
     </div>
+    <!-- 到此 -->
     <footer>
+        <style>
+            body {
+                --bg: url("https://cdn.jsdelivr.net/gh/thun888/tuku@master/img/background.bc725154.png");
+                background-repeat: no-repeat;
+                background-size: cover;
+                background-attachment: fixed;
+                background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), var(--bg);
+            }
+        </style>
     </footer>
 </body>
