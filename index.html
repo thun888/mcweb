@@ -34,10 +34,10 @@
                 </a>
             </ul>
         </div>
-        <!-- <a href="/chatsearch/" class="mdui-list-item mdui-ripple">
+        <a href="/chatsearch/" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">chat</i>
             <div class="mdui-list-item-content">聊天查询</div>
-        </a> -->
+        </a>
         <a href="/photo/" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">photo</i>
             <div class="mdui-list-item-content">相册</div>
@@ -139,7 +139,7 @@
                         <div class="mdui-card-header">
                             <div class="mdui-card-header-title" id="item">
                                 <h3><i class="mdui-icon material-icons mdui-list-item-icon">notifications_none</i>
-                                    <a href="/?mode=admin">公告</a></h3>
+                                    <a href="./?mode=admin">公告</a></h3>
                             </div>
                         </div>
                         <div class="mdui-card-content">
@@ -156,7 +156,6 @@
                             server: 'https://artalk.hzchu.top', // 后端地址
                             site: 'mcweb', // 你的站点名
                             voteDown: 'true',
-                            //占位符
                         })
                         // 获取URL参数
                     const urlParams = new URLSearchParams(window.location.search);
@@ -198,7 +197,7 @@
                     }
                     
                     #item {
-                        margin: -10px 0px 0px -5px;
+                        margin: -10px 0px 0px 0px;
                     }
                     
                     @media (max-width: 680px) {

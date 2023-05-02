@@ -40,10 +40,10 @@
                 </a>
             </ul>
         </div>
-        <!-- <a href="/chatsearch/" class="mdui-list-item mdui-ripple">
+        <a href="/chatsearch/" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">chat</i>
             <div class="mdui-list-item-content">聊天查询</div>
-        </a> -->
+        </a>
         <a href="/photo/" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">photo</i>
             <div class="mdui-list-item-content">相册</div>
@@ -113,20 +113,35 @@
                     <div class="content">
                         <!-- Artalk -->
                         <div class="card">
-                            <p>作为一个公开的相册，我们需要进行人工审核，请私发给Q群管理员，待审核通过后会显示在此处</p>
+                            <a href="./?mode=admin">
+                                <p>作为一个公开的相册，我们需要进行人工审核，请私发给Q群管理员，待审核通过后会显示在此处</p>
+                            </a>
                         </div>
                         <div id="Comments"></div>
                         <script>
                             Artalk.init({
-                                el: '#Comments', // 绑定元素的 Selector
-                                pageKey: '/photo/', // 固定链接 (留空自动获取)
-                                pageTitle: '', // 页面标题 (留空自动获取)
-                                server: 'https://artalk.hzchu.top', // 后端地址
-                                site: 'mcweb', // 你的站点名
-                            })
+                                    el: '#Comments', // 绑定元素的 Selector
+                                    pageKey: '/photo/', // 固定链接 (留空自动获取)
+                                    pageTitle: '', // 页面标题 (留空自动获取)
+                                    server: 'https://artalk.hzchu.top', // 后端地址
+                                    site: 'mcweb', // 你的站点名
+                                })
+                                // 获取URL参数
+                            const urlParams = new URLSearchParams(window.location.search);
+                            const isAdminMode = urlParams.get('mode') === 'admin';
+                            if (!isAdminMode) {
+                                document.querySelector('.atk-main-editor').style.display = 'none';
+                                document.querySelector('.atk-list-header').style.display = 'none';
+                                document.querySelector('.atk-list-footer').style.display = 'none';
+                            }
                             document.getElementById("titletext").innerHTML = "峰间云海|相册";
                         </script>
                         <style>
+                            a {
+                                text-decoration: none;
+                                color: inherit;
+                            }
+                            
                             #Comments {
                                 width: 90%;
                                 margin: 30px auto 0 auto;
