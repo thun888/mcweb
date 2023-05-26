@@ -149,7 +149,7 @@
 
     <script>
         function updateStatus() {
-            $.get('https://homeip.hzchu.top:5001/server/status', function(data) {
+            $.get('https://mcweb-api.hzchu.top/server/status', function(data) {
                 $('#cpu-progress .mdui-progress-determinate').css('width', data.usage.cpu + '%');
                 $('#mem-progress .mdui-progress-determinate').css('width', data.usage.mem + '%');
                 $('#cpu-percentage').text(data.usage.cpu.toFixed(1) + '%');

@@ -119,10 +119,10 @@
                             <table class="mdui-table mdui-table-hoverable">
                                 <thead>
                                     <tr>
-                                        <th>MID</th>
-                                        <th>时间</th>
                                         <th>玩家名称</th>
                                         <th>消息</th>
+                                        <th>MID</th>
+                                        <th>时间</th>
                                     </tr>
                                 </thead>
                                 <tbody id="scoreboard-body">
@@ -135,7 +135,7 @@
             </div>
 
             <script>
-                const scoreboardUrl = 'https://homeip.hzchu.top:5001/user/msg';
+                const scoreboardUrl = 'https://mcweb-api.hzchu.top/user/msg';
                 const scoreboardBody = document.getElementById('scoreboard-body');
 
                 fetch(scoreboardUrl)
@@ -143,20 +143,24 @@
                     .then(scoreboard => {
                         scoreboard.forEach((player, index) => {
                             const row = document.createElement('tr');
-                            const mid = document.createElement('td');
-                            const msgtime = document.createElement('td');
                             const playerName = document.createElement('td');
                             const msg = document.createElement('td');
+                            const mid = document.createElement('td');
+                            const msgtime = document.createElement('td');
+
 
                             mid.textContent = player.id;
                             msgtime.textContent = player.time;
-                            playerName.textContent = player.playername;
+                            if (player.playername == "thun8") {
+                                playerName.textContent = "[管理]thun8";
+                            } else {
+                                playerName.textContent = player.playername;
+                            }
                             msg.textContent = player.msg;
-
-                            row.appendChild(mid);
-                            row.appendChild(msgtime);
                             row.appendChild(playerName);
                             row.appendChild(msg);
+                            row.appendChild(mid);
+                            row.appendChild(msgtime);
 
                             scoreboardBody.appendChild(row);
                         });
