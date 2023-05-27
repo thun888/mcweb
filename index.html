@@ -187,9 +187,14 @@
 
                     function updateStatus() {
                         $.get('https://mccheck.hzchu.top/check?ip=awsawanb.hzchu.top&type=js', function(data) {
-                            online = data.online;
-                            latency = data.latency;
-                            document.getElementById("status").innerHTML = `在线/最大玩家:${online} | 延迟:${latency}ms`;
+                            if (data.msg) {
+                                document.getElementById("status").innerHTML = `API返回错误：${data.msg}`;
+                            } else {
+                                online = data.online;
+                                latency = data.latency;
+                                document.getElementById("status").innerHTML = `在线/最大玩家:${online} | 延迟:${latency}ms`;
+                            }
+
                         });
                     }
 
