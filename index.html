@@ -26,7 +26,7 @@
                 <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
             </div>
             <ul class="mdui-collapse-item-body mdui-list mdui-list-dense">
-                <a href="/dynmap/">
+                <a href="https://mcmap.hzchu.top/">
                     <li class="mdui-list-item mdui-ripple">地图</li>
                 </a>
                 <a href="https://share.hzchu.top/MC/dynmap数据/">
@@ -142,6 +142,17 @@
                     <div class="mdui-card">
                         <div class="mdui-card-header">
                             <div class="mdui-card-header-title" id="item">
+                                <h3><i class="mdui-icon material-icons mdui-list-item-icon">assessment</i>
+                                    <a href="#">状态</a></h3>
+                            </div>
+                        </div>
+                        <div class="mdui-card-content">
+                            <p id="status" style="margin: -10px 0px 0px 0px;"></p>
+                        </div>
+                    </div>
+                    <div class="mdui-card">
+                        <div class="mdui-card-header">
+                            <div class="mdui-card-header-title" id="item">
                                 <h3><i class="mdui-icon material-icons mdui-list-item-icon">notifications_none</i>
                                     <a href="./?mode=admin">公告</a></h3>
                             </div>
@@ -173,6 +184,24 @@
                     }
 
                     document.getElementById("titletext").innerHTML = "峰间云海|首页";
+
+                    function updateStatus() {
+                        $.get('https://mccheck.hzchu.top/check?ip=awsawanb.hzchu.top&type=js', function(data) {
+                            online = data.online;
+                            latency = data.latency;
+                            document.getElementById("status").innerHTML = `在线/最大玩家:${online} | 延迟:${latency}ms`;
+                        });
+                    }
+
+                    $(function() {
+                        // 初次加载状态
+                        updateStatus();
+
+                        // 每15秒刷新状态
+                        setInterval(function() {
+                            updateStatus();
+                        }, 15000);
+                    });
                 </script>
                 <style>
                     a {
