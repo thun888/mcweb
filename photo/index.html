@@ -13,13 +13,10 @@
 </head>
 
 <body class="mdui-theme-primary-blue-grey mdui-theme-accent-blue">
-    <!-- CSS -->
-<link href="https://cdn.bootcdn.net/ajax/libs/artalk/2.5.4/Artalk.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/magnific-popup.js/1.1.0/magnific-popup.min.css" rel="stylesheet" />
+    <script src="https://cdn.bootcss.com/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
 
-<!-- JS -->
-<script src="https://cdn.bootcdn.net/ajax/libs/artalk/2.5.4/Artalk.js"></script>
-
-        <div class="mdui-drawer mdui-drawer-close" id="sidebar">
+    <div class="mdui-drawer mdui-drawer-close" id="sidebar">
     <div class="mdui-list" mdui-collapse="{accordion: true}">
         <a href="/" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
@@ -46,7 +43,7 @@
         </a>
         <!-- <a href="/bansearch/" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">account_balance</i>
-            <div class="mdui-list-item-content">封禁查询</div>
+            <div class="mdui-list-item-content">小黑屋</div>
         </a> -->
         <a href="/photo/" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">photo</i>
@@ -98,7 +95,7 @@
         </a>
     </div>
 </div>
-            <div class="mdui-appbar">
+        <div class="mdui-appbar">
     <div class="mdui-toolbar mdui-color-teal mdui-appbar-scroll-hide">
         <a href="javascript:;" class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar'}">
             <i class="mdui-icon material-icons">menu</i>
@@ -113,62 +110,141 @@
         </a>
     </div>
 </div>
-                <div class="mdui-container">
-                    <div class="content">
-                        <!-- Artalk -->
-                        <div class="card">
-                            <a href="./?mode=admin">
-                                <p>作为一个公开的相册，我们需要进行人工审核，请私发给Q群管理员，待审核通过后会显示在此处</p>
-                            </a>
-                        </div>
-                        <div id="Comments"></div>
-                        <script>
-                            Artalk.init({
-                                    el: '#Comments', // 绑定元素的 Selector
-                                    pageKey: '/photo/', // 固定链接 (留空自动获取)
-                                    pageTitle: '', // 页面标题 (留空自动获取)
-                                    server: 'https://artalk.hzchu.top', // 后端地址
-                                    site: 'mcweb', // 你的站点名
-                                })
-                                // 获取URL参数
-                            const urlParams = new URLSearchParams(window.location.search);
-                            const isAdminMode = urlParams.get('mode') === 'admin';
-                            if (!isAdminMode) {
-                                document.querySelector('.atk-main-editor').style.display = 'none';
-                                document.querySelector('.atk-list-header').style.display = 'none';
-                                document.querySelector('.atk-list-footer').style.display = 'none';
-                            }
-                            document.getElementById("titletext").innerHTML = "峰间云海|相册";
-                        </script>
-                        <style>
-                            a {
-                                text-decoration: none;
-                                color: inherit;
-                            }
-                            
-                            #Comments {
-                                width: 90%;
-                                margin: 30px auto 0 auto;
-                            }
-                            
-                            .card {
-                                margin: 30px auto 0 auto;
-                                background-color: #fff;
-                                border-radius: 5px;
-                                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-                                padding: 20px;
-                                width: 85%;
-                            }
-                            
-                            .card p {
-                                font-size: 14px;
-                                line-height: 1.5;
-                                margin: 0;
-                            }
-                        </style>
+            <div class="card">
+                <a href="./?mode=admin">
+                    <p>在群中@bot并带上图片就可以显示在这里了~<br>快来展示你的得意之作吧🕊️</p>
+                </a>
+            </div>
+            <div class="gallery-section">
+                <div class="inner-width">
+                    <div class="gallery">
                     </div>
                 </div>
-                <footer>
+            </div>
+            <script>
+                $('.gallery').magnificPopup({
+                    delegate: 'a',
+                    type: 'image',
+                    gallery: {
+                        enabled: true
+                    },
+                    image: {
+                        titleSrc: 'title' // 显示链接的title属性作为图片名称
+                    }
+                })
+                document.getElementById("titletext").innerHTML = "峰间云海|相册";
+
+                fetch('https://mcweb-api.hzchu.top/user/photo?num=0')
+                    .then(response => response.json())
+                    .then(data => {
+                        // 处理返回的数据
+                        const galleryDiv = document.querySelector('.gallery');
+                        data.forEach(item => {
+                            const {
+                                author,
+                                id,
+                                time,
+                                url
+                            } = item;
+                            const title = `${id}_${author}_${time}`;
+
+                            const aElement = document.createElement('a');
+                            aElement.href = url;
+                            aElement.className = 'image';
+                            aElement.title = title;
+
+                            const imgElement = document.createElement('img');
+                            imgElement.src = url;
+                            imgElement.alt = '';
+
+                            aElement.appendChild(imgElement);
+                            galleryDiv.appendChild(aElement);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('发生错误:', error);
+                    });
+            </script>
+            <style>
+                .gallery-section {
+                    width: 100%;
+                    padding: 60px 0;
+                }
+                
+                .inner-width {
+                    width: 100%;
+                    max-width: 1200px;
+                    margin: auto;
+                    padding: 0 20px;
+                }
+                
+                .gallery-section h1 {
+                    text-align: center;
+                    text-transform: uppercase;
+                    color: #333;
+                }
+                
+                .gallery-section .gallery {
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                }
+                
+                .gallery-section .image {
+                    flex: 25%;
+                    overflow: hidden;
+                    cursor: pointer;
+                }
+                
+                .gallery-section .image img {
+                    width: 100%;
+                    height: 100%;
+                    transition: 0.4s;
+                }
+                
+                .gallery-section .image:hover img {
+                    transform: scale(1.4) rotate(15deg);
+                }
+                
+                @media screen and (max-width: 960px) {
+                    .gallery-section .image {
+                        flex: 33.33%;
+                    }
+                }
+                
+                @media screen and (max-width: 768px) {
+                    .gallery-section .image {
+                        flex: 50%;
+                    }
+                }
+                
+                @media screen and (max-width: 480px) {
+                    .gallery-section .image {
+                        flex: 100%;
+                    }
+                }
+                
+                .card {
+                    margin: 30px auto 0 auto;
+                    background-color: #fff;
+                    border-radius: 5px;
+                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+                    padding: 20px;
+                    width: 85%;
+                }
+                
+                .card p {
+                    font-size: 14px;
+                    line-height: 1.5;
+                    margin: 0;
+                }
+                
+                .card a {
+                    text-decoration: none;
+                    color: inherit;
+                }
+            </style>
+            <footer>
     <style>
         body {
             --bg: url("https://cdn.jsdelivr.net/gh/thun888/tuku@master/img/background.bc725154.png");

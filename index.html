@@ -40,7 +40,7 @@
         </a>
         <!-- <a href="/bansearch/" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">account_balance</i>
-            <div class="mdui-list-item-content">封禁查询</div>
+            <div class="mdui-list-item-content">小黑屋</div>
         </a> -->
         <a href="/photo/" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">photo</i>
@@ -186,7 +186,7 @@
                     document.getElementById("titletext").innerHTML = "峰间云海|首页";
 
                     function updateStatus() {
-                        $.get('https://mccheck.hzchu.top/check?ip=awsawanb.hzchu.top&type=js', function(data) {
+                        $.get('https://mccheck.hzchu.top/check?tag=1', function(data) {
                             if (data.msg) {
                                 document.getElementById("status").innerHTML = `API返回错误：${data.msg}`;
                             } else {
