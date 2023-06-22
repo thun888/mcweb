@@ -76,7 +76,7 @@
                     document.getElementById("titletext").innerHTML = "峰间云海|首页";
 
                     function updateStatus() {
-                        $.get('https://mccheck.hzchu.top/check?ip=awsawanb.hzchu.top&type=js', function(data) {
+                        $.get('https://mccheck.hzchu.top/check?tag=1', function(data) {
                             if (data.msg) {
                                 document.getElementById("status").innerHTML = `API返回错误：${data.msg}`;
                             } else {

@@ -1,0 +1,174 @@
+<layout html head>
+    <layout html 侧边栏>
+        <layout html 顶栏>
+            <!-- 到此 -->
+            <layout html artalk>
+
+                <div class="mdui-container">
+                    <div class="mdui-card">
+                        <div class="mdui-card-header">
+                            <div class="mdui-card-header-title" id="item">
+                                <h3><i class="mdui-icon material-icons mdui-list-item-icon">golf_course</i>
+                                    <a href="#">Token</a></h3>
+                            </div>
+                        </div>
+                        <div class="mdui-card-content">
+                            <div style="margin: -10px 0px 0px 0px;" class="mdui-textfield">
+                                <label class="mdui-textfield-label">Token</label>
+                                <input class="mdui-textfield-input" type="text" />
+                            </div>
+                        </div>
+                        <div class="mdui-card-actions mdui-float-right">
+                            <button id="token-enter" class="mdui-btn mdui-ripple">Enter</button>
+                        </div>
+                    </div>
+                    <div id="fuction">
+                        <div class="mdui-card">
+                            <div class="mdui-card-header">
+                                <div class="mdui-card-header-title" id="item">
+                                    <h3><i class="mdui-icon material-icons mdui-list-item-icon">account_balance</i>
+                                        <a href="#">封禁</a></h3>
+                                </div>
+                            </div>
+                            <div class="mdui-card-content">
+                                <p id="status" style="margin: -10px 0px 0px 0px;"></p>
+                            </div>
+                        </div>
+
+                        <div class="mdui-card">
+                            <div class="mdui-card-header">
+                                <div class="mdui-card-header-title" id="item">
+                                    <h3><i class="mdui-icon material-icons mdui-list-item-icon">notifications_none</i>
+                                        <a href="./?mode=admin">公告</a></h3>
+                                </div>
+                            </div>
+                            <div class="mdui-card-content">
+                                <div id="Comments"></div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div id="wtf" style="display: none;">
+                        <div class="mdui-card">
+                            <div class="mdui-card-header">
+                                <div class="mdui-card-header-title" id="item">
+                                    <h3><i class="mdui-icon material-icons mdui-list-item-icon">flare</i>
+                                        <a href="#">这是什么</a></h3>
+                                </div>
+                            </div>
+                            <div class="mdui-card-content">
+                                <p style="margin: -10px 0px 0px 0px;">这是一个管理页面，需要相应token才可以食用</p>
+                                <p>对于管理员，需要私信Bot获取token</p>
+                            </div>
+                        </div>
+                    </div>
+                    <script>
+                        if (document.cookie.indexOf('token') < 0) {
+                            document.getElementById("fuction").style.display = "none";
+                            mdui.snackbar({
+                                message: 'Cookies中没有token！'
+                            });
+                            document.getElementById("wtf").style.display = "unset";
+                        } else {
+                            $.ajax({
+                                url: 'https://mcweb-api.hzchu.top/admin/checktoken',
+                                type: 'POST',
+                                contentType: 'application/json',
+                                data: JSON.stringify({
+                                    token: getCookie('token')
+                                }),
+                                success: function(response) {
+                                    var code = response.code;
+                                    console.log(code)
+                                    var msg = response.msg;
+                                    console.log(msg)
+                                        // 在这里处理返回的code和msg
+                                    if (code = 200) {
+                                        mdui.snackbar({
+                                            message: msg
+                                        });
+                                    } else {
+                                        document.getElementById("fuction").style.display = "none";
+                                        document.getElementById("wtf").style.display = "unset";
+                                        mdui.snackbar({
+                                            message: msg
+                                        });
+                                    }
+                                }
+                            });
+
+
+                        }
+
+                        function getCookie(name) {
+                            var value = "; " + document.cookie;
+                            var parts = value.split("; " + name + "=");
+                            if (parts.length == 2) return parts.pop().split(";").shift();
+                        }
+
+                        document.getElementById("token-enter").onclick = function() {
+                            var inputText = document.querySelector(".mdui-textfield-input").value;
+                            document.cookie = "token=" + inputText;
+                            location.reload();
+                        }
+
+
+
+                        document.getElementById("titletext").innerHTML = "峰间云海|管理";
+                    </script>
+                    <style>
+                        a {
+                            text-decoration: none;
+                            color: inherit;
+                        }
+                        
+                        .mdui-card {
+                            width: 90%;
+                            margin: 50px auto 0 auto;
+                            border-radius: 10px;
+                        }
+                        
+                        #logoheader {
+                            display: flex;
+                            height: 100px;
+                            align-items: center;
+                        }
+                        
+                        table {
+                            border-radius: 10px;
+                        }
+                        
+                        #logotext {
+                            margin: 30px 30% 10px;
+                        }
+                        
+                        #item {
+                            margin: -10px 0px 0px 0px;
+                        }
+                        
+                        @media (max-width: 680px) {
+                            #logotext {
+                                margin: 30px 20% 10px;
+                            }
+                        }
+                        
+                        @media (max-width: 450px) {
+                            #logotext {
+                                margin: 30px 10% 10px;
+                            }
+                        }
+                        
+                        @media (max-width: 360px) {
+                            #logotext {
+                                display: none;
+                            }
+                        }
+                        
+                        #logo {
+                            width: 104px;
+                            margin: auto 0 0 0;
+                        }
+                    </style>
+                </div>
+                <!-- 到此 -->
+                <layout html footer>
