@@ -4,17 +4,30 @@
 
     <layout html 侧边栏>
         <layout html 顶栏>
-            <div class="card">
-                <a href="./?mode=admin">
-                    <p>在群中@bot并带上图片就可以显示在这里了~<br>快来展示你的得意之作吧🕊️</p>
-                </a>
-            </div>
-            <div class="gallery-section">
-                <div class="inner-width">
-                    <div class="gallery">
+            <div class="mdui-container">
+
+                <div class="card">
+                    <a href="./?mode=admin">
+                        <p>在群中@Bot并带上图片就可以显示在这里了~<br>快来展示你的得意之作吧🕊️</p>
+                    </a>
+                </div>
+                <div class="gallery-section">
+                    <div class="inner-width">
+                        <div class="gallery">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mdui-row">
+                    <div class="mdui-col-xs-6">
+                        <button class="mdui-btn mdui-btn-raised mdui-ripple" id="previous">上一页</button>
+                    </div>
+                    <div class="mdui-col-xs-6 mdui-text-right">
+                        <button class="mdui-btn mdui-btn-raised mdui-ripple" id="next">下一页</button>
                     </div>
                 </div>
             </div>
+
             <script>
                 $('.gallery').magnificPopup({
                     delegate: 'a',
@@ -28,11 +41,35 @@
                 })
                 document.getElementById("titletext").innerHTML = "峰间云海|相册";
 
-                fetch('https://mcweb-api.hzchu.top/user/photo?num=0')
+
+                // 获取URL中的查询参数
+                const urlParams = new URLSearchParams(window.location.search);
+
+                // 检查是否存在参数num
+                const num = urlParams.has('num') ? parseInt(urlParams.get('num')) : 0;
+                if (num == 0) {
+                    document.getElementById('previous').disabled = true;
+                }
+                fetch('https://mcweb-api.hzchu.top/user/photo?num=' + num)
                     .then(response => response.json())
                     .then(data => {
                         // 处理返回的数据
                         const galleryDiv = document.querySelector('.gallery');
+                        var count = data.length
+                        console.log(count)
+                        if (!count) {
+                            document.getElementById('next').disabled = true;
+                            mdui.snackbar({
+                                message: '看完了😢'
+                            });
+                            return
+                        }
+                        if (count < 24) {
+                            document.getElementById('next').disabled = true;
+                            mdui.snackbar({
+                                message: '看完了😢'
+                            });
+                        }
                         data.forEach(item => {
                             const {
                                 author,
@@ -56,20 +93,86 @@
                         });
                     })
                     .catch(error => {
-                        console.error('发生错误:', error);
+                        mdui.snackbar({
+                            message: '发生错误:' + error
+                        });
+                        //console.error('发生错误:', error);
                     });
+
+                // 获取上一页和下一页按钮的引用
+                const previousButton = document.getElementById('previous');
+                const nextButton = document.getElementById('next');
+
+                // 监听上一页按钮的点击事件
+                previousButton.addEventListener('click', function() {
+                    // 减去24
+                    num_next = num - 24;
+
+                    // 如果结果小于0，赋值为0
+                    if (num_next < 0) {
+                        num_next = 0;
+                    }
+
+                    // 更新页面参数num的值
+                    updateUrlParameter('num', num_next);
+
+                    // 刷新页面
+                    window.location.reload();
+                });
+
+                // 监听下一页按钮的点击事件
+                nextButton.addEventListener('click', function() {
+                    num_next = num - 24;
+
+                    // 更新页面参数num的值
+                    updateUrlParameter('num', num_next);
+
+                    // 刷新页面
+                    window.location.reload();
+                });
+
+                // 获取URL中指定参数的值
+                function getParameterByName(name) {
+                    const url = window.location.href;
+                    name = name.replace(/[\[\]]/g, '\\$&');
+                    const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+                    const results = regex.exec(url);
+                    if (!results) return null;
+                    if (!results[2]) return '';
+                    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+                }
+
+                // 更新URL中指定参数的值
+                function updateUrlParameter(key, value) {
+                    const baseUrl = [location.protocol, '//', location.host, location.pathname].join('');
+                    const urlQueryString = document.location.search;
+                    const newParam = key + '=' + value;
+                    let params = '?' + newParam;
+
+                    // 如果URL中已经包含指定参数，则替换它的值
+                    if (urlQueryString) {
+                        const keyRegex = new RegExp('([?&])' + key + '[^&]*');
+                        if (urlQueryString.match(keyRegex) !== null) {
+                            params = urlQueryString.replace(keyRegex, '$1' + newParam);
+                        } else {
+                            params = urlQueryString + '&' + newParam;
+                        }
+                    }
+
+                    // 更新URL
+                    window.history.replaceState({}, '', baseUrl + params);
+                }
             </script>
             <style>
                 .gallery-section {
                     width: 100%;
-                    padding: 60px 0;
+                    padding: 60px 0 0 0;
                 }
                 
                 .inner-width {
                     width: 100%;
                     max-width: 1200px;
                     margin: auto;
-                    padding: 0 20px;
                 }
                 
                 .gallery-section h1 {
@@ -136,6 +239,10 @@
                 .card a {
                     text-decoration: none;
                     color: inherit;
+                }
+                
+                .mdui-row {
+                    padding: 2%;
                 }
             </style>
             <layout html footer>
