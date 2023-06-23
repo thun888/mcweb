@@ -125,9 +125,17 @@
                                         <th>时间</th>
                                     </tr>
                                 </thead>
-                                <tbody id="scoreboard-body">
+                                <tbody id="table-body">
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+                    <div class="mdui-row">
+                        <div class="mdui-col-xs-6">
+                            <button class="mdui-btn mdui-btn-raised mdui-ripple" id="previous">上一页</button>
+                        </div>
+                        <div class="mdui-col-xs-6 mdui-text-right">
+                            <button class="mdui-btn mdui-btn-raised mdui-ripple" id="next">下一页</button>
                         </div>
                     </div>
                 </div>
@@ -135,13 +143,35 @@
             </div>
 
             <script>
-                const scoreboardUrl = 'https://mcweb-api.hzchu.top/user/msg';
-                const scoreboardBody = document.getElementById('scoreboard-body');
+                // 获取URL中的查询参数
+                const urlParams = new URLSearchParams(window.location.search);
 
-                fetch(scoreboardUrl)
+                // 检查是否存在参数num
+                const num = urlParams.has('num') ? parseInt(urlParams.get('num')) : 0;
+                if (num == 0) {
+                    document.getElementById('previous').disabled = true;
+                }
+                const apiurl = 'https://mcweb-api.hzchu.top/user/msg?num=' + num;
+                const tableBody = document.getElementById('table-body');
+
+                fetch(apiurl)
                     .then(response => response.json())
-                    .then(scoreboard => {
-                        scoreboard.forEach((player, index) => {
+                    .then(data => {
+                        var count = data.length
+                        if (!count) {
+                            document.getElementById('next').disabled = true;
+                            mdui.snackbar({
+                                message: '看完了😢'
+                            });
+                            return
+                        }
+                        if (count < 40) {
+                            document.getElementById('next').disabled = true;
+                            mdui.snackbar({
+                                message: '最后一页了😶‍🌫️'
+                            });
+                        }
+                        data.forEach((player, index) => {
                             const row = document.createElement('tr');
                             const playerName = document.createElement('td');
                             const msg = document.createElement('td');
@@ -162,9 +192,84 @@
                             row.appendChild(mid);
                             row.appendChild(msgtime);
 
-                            scoreboardBody.appendChild(row);
+                            tableBody.appendChild(row);
                         });
+                    })
+                    .catch(error => {
+                        mdui.snackbar({
+                            message: '发生错误:' + error
+                        });
+                        //console.error('发生错误:', error);
                     });
+                if (num >= 160) {
+                    document.getElementById('next').disabled = true;
+                    mdui.snackbar({
+                        message: '200条后不予查看😶‍🌫️'
+                    });
+                }
+                // 获取上一页和下一页按钮的引用
+                const previousButton = document.getElementById('previous');
+                const nextButton = document.getElementById('next');
+
+                // 监听上一页按钮的点击事件
+                previousButton.addEventListener('click', function() {
+                    // 减去24
+                    num_next = num - 40;
+
+                    // 如果结果小于0，赋值为0
+                    if (num_next < 0) {
+                        num_next = 0;
+                    }
+
+                    // 更新页面参数num的值
+                    updateUrlParameter('num', num_next);
+
+                    // 刷新页面
+                    window.location.reload();
+                });
+
+                // 监听下一页按钮的点击事件
+                nextButton.addEventListener('click', function() {
+                    num_next = num + 40;
+
+                    // 更新页面参数num的值
+                    updateUrlParameter('num', num_next);
+
+                    // 刷新页面
+                    window.location.reload();
+                });
+
+                // 获取URL中指定参数的值
+                function getParameterByName(name) {
+                    const url = window.location.href;
+                    name = name.replace(/[\[\]]/g, '\\$&');
+                    const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+                    const results = regex.exec(url);
+                    if (!results) return null;
+                    if (!results[2]) return '';
+                    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+                }
+
+                // 更新URL中指定参数的值
+                function updateUrlParameter(key, value) {
+                    const baseUrl = [location.protocol, '//', location.host, location.pathname].join('');
+                    const urlQueryString = document.location.search;
+                    const newParam = key + '=' + value;
+                    let params = '?' + newParam;
+
+                    // 如果URL中已经包含指定参数，则替换它的值
+                    if (urlQueryString) {
+                        const keyRegex = new RegExp('([?&])' + key + '[^&]*');
+                        if (urlQueryString.match(keyRegex) !== null) {
+                            params = urlQueryString.replace(keyRegex, '$1' + newParam);
+                        } else {
+                            params = urlQueryString + '&' + newParam;
+                        }
+                    }
+
+                    // 更新URL
+                    window.history.replaceState({}, '', baseUrl + params);
+                }
             </script>
             <style>
                 .mdui-card {
@@ -180,6 +285,10 @@
                 
                 table {
                     border-radius: 10px;
+                }
+                
+                .mdui-row {
+                    padding: 2%;
                 }
             </style>
             </div>

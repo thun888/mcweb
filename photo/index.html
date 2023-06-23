@@ -117,21 +117,25 @@
                         <p>在群中@Bot并带上图片就可以显示在这里了~<br>快来展示你的得意之作吧🕊️</p>
                     </a>
                 </div>
-                <div class="gallery-section">
-                    <div class="inner-width">
-                        <div class="gallery">
+                <div class="mdui-card">
+
+                    <div class="gallery-section">
+                        <div class="inner-width">
+                            <div class="gallery">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mdui-row">
+                        <div class="mdui-col-xs-6">
+                            <button class="mdui-btn mdui-btn-raised mdui-ripple" id="previous">上一页</button>
+                        </div>
+                        <div class="mdui-col-xs-6 mdui-text-right">
+                            <button class="mdui-btn mdui-btn-raised mdui-ripple" id="next">下一页</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="mdui-row">
-                    <div class="mdui-col-xs-6">
-                        <button class="mdui-btn mdui-btn-raised mdui-ripple" id="previous">上一页</button>
-                    </div>
-                    <div class="mdui-col-xs-6 mdui-text-right">
-                        <button class="mdui-btn mdui-btn-raised mdui-ripple" id="next">下一页</button>
-                    </div>
-                </div>
+
             </div>
 
             <script>
@@ -173,7 +177,7 @@
                         if (count < 24) {
                             document.getElementById('next').disabled = true;
                             mdui.snackbar({
-                                message: '看完了😢'
+                                message: '最后一页了😶‍🌫️'
                             });
                         }
                         data.forEach(item => {
@@ -228,7 +232,7 @@
 
                 // 监听下一页按钮的点击事件
                 nextButton.addEventListener('click', function() {
-                    num_next = num - 24;
+                    num_next = num + 24;
 
                     // 更新页面参数num的值
                     updateUrlParameter('num', num_next);
@@ -272,7 +276,6 @@
             <style>
                 .gallery-section {
                     width: 100%;
-                    padding: 60px 0 0 0;
                 }
                 
                 .inner-width {
@@ -291,6 +294,7 @@
                     display: flex;
                     flex-wrap: wrap;
                     justify-content: center;
+                    padding: 10px;
                 }
                 
                 .gallery-section .image {
@@ -327,13 +331,19 @@
                     }
                 }
                 
+                .mdui-card {
+                    width: 100%;
+                    margin: 30px auto 0 auto;
+                    border-radius: 10px;
+                }
+                
                 .card {
                     margin: 30px auto 0 auto;
                     background-color: #fff;
                     border-radius: 5px;
                     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
                     padding: 20px;
-                    width: 85%;
+                    /* width: 85%; */
                 }
                 
                 .card p {
