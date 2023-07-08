@@ -77,11 +77,12 @@
                         data.forEach(item => {
                             const {
                                 author,
+                                nickname,
                                 id,
                                 time,
                                 url
                             } = item;
-                            const title = `${id}_${author}_${time}`;
+                            const title = `${id}_${nickname}_${author}_${time}`;
 
                             const aElement = document.createElement('a');
                             aElement.href = url;
