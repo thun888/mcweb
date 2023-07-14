@@ -16,15 +16,17 @@ if (document.cookie.indexOf('token') < 0) {
         }),
         success: function(response) {
             var code = response.code;
+            var name = response.name
             console.log(code);
-            var msg = response.msg;
+            //var msg = response.msg;
             //console.log(msg);
 
             // 处理返回的code和msg
             if (code === 0) {
                 mdui.snackbar({
-                    message: "token过期时间：" + response.endtime
+                    message: "欢迎：" + name + "<br>token过期时间：" + response.endtime
                 });
+                document.cookie = "name=" + name;
             } else {
                 document.getElementById("fuction").style.display = "none";
                 document.getElementById("wtf").style.display = "unset";
@@ -85,7 +87,7 @@ ban_choice.addEventListener('change', function() {
 });
 document.getElementById("ban-enter").onclick = function() {
     var inst = new mdui.Dialog('#dialog');
-
+    var name = getCookie("name")
     $.ajax({
         url: 'https://mcweb-api.hzchu.top/admin/banplayer',
         type: 'POST',
@@ -93,7 +95,7 @@ document.getElementById("ban-enter").onclick = function() {
         data: JSON.stringify({
             playername: ban_player.value,
             token: getCookie('token'),
-            reason: ban_reason.value
+            reason: ban_reason.value + "（由管理员：" + name + "操作）"
         }),
         success: function(response) {
             var code = response.code;
@@ -101,11 +103,11 @@ document.getElementById("ban-enter").onclick = function() {
 
             // 处理返回的code和msg
             if (code === 0) {
-                document.getElementById("dialog-title").innerText = "返回结果"
+                document.getElementById("dialog-title").innerText = "返回结果："
                 document.getElementById("dialog-content").innerText = response.response
                 inst.open();
             } else {
-                document.getElementById("dialog-title").innerText = "返回结果"
+                document.getElementById("dialog-title").innerText = "处理失败！返回结果："
                 document.getElementById("dialog-content").innerText = response.msg
                 inst.open();
 
@@ -131,11 +133,100 @@ document.getElementById("deban-enter").onclick = function() {
 
             // 处理返回的code和msg
             if (code === 0) {
-                document.getElementById("dialog-title").innerText = "返回结果"
+                document.getElementById("dialog-title").innerText = "返回结果："
                 document.getElementById("dialog-content").innerText = response.response
                 inst.open();
             } else {
-                document.getElementById("dialog-title").innerText = "返回结果"
+                document.getElementById("dialog-title").innerText = "处理失败！返回结果："
+                document.getElementById("dialog-content").innerText = response.msg
+                inst.open();
+
+            }
+
+        }
+    })
+}
+document.getElementById("account-enter").onclick = function() {
+    var inst = new mdui.Dialog('#dialog');
+    var mode = document.getElementById("account_choice").value;
+    $.ajax({
+        url: 'https://mcweb-api.hzchu.top/admin/getaccount',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            accountinfo: document.getElementById("account").value,
+            token: getCookie('token'),
+            mode: parseInt(mode)
+        }),
+        success: function(response) {
+            var code = response.code;
+            // 处理返回的code和msg
+            if (code === 0) {
+                if (response.group == 0) {
+                    var group = "管理组"
+
+                } else if (response.group == 1) {
+                    var group = "普通玩家"
+
+                } else if (response.group == 2) {
+                    var group = "非Q群玩家"
+
+                } else {
+                    var group = "未知"
+
+                }
+                if (response.status == 1) {
+                    var status = "正常"
+
+                } else if (response.group == 2) {
+                    var status = "已被封禁"
+
+                } else {
+                    var status = "未知"
+
+                }
+                document.getElementById("dialog-title").innerText = "查询结果："
+                var content = `
+                <div class="mdui-table-fluid">
+                <table class="mdui-table">
+                  <thead>
+                  <tr>
+                    <th>项目</th>
+                    <th>内容</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td>游戏名（JAVA）</td>
+                    <td>` + xss(response.user_name) + `</td>
+                  </tr>
+                  <tr>
+                    <td>游戏名（BE）</td>
+                    <td>` + xss(response.be_name) + `</td>
+                  </tr>
+                  <tr>
+                    <td>所属用户组</td>
+                    <td>` + group + `</td>
+                </tr>         
+                <tr>
+                    <td>状态</td>
+                    <td>` + status + `</td>
+                </tr>
+                <tr>
+                    <td>QQ</td>
+                    <td>` + response.qq + `</td>
+                </tr>
+                <tr>
+                    <td>绑定时间</td>
+                    <td>` + response.bind_time + `</td>
+                </tr> 
+                  </tbody>
+                </table>
+              </div>`
+                document.getElementById("dialog-content").innerHTML = content
+                inst.open();
+            } else {
+                document.getElementById("dialog-title").innerText = "处理失败！返回结果："
                 document.getElementById("dialog-content").innerText = response.msg
                 inst.open();
 
@@ -146,8 +237,22 @@ document.getElementById("deban-enter").onclick = function() {
 }
 
 
+function xss(str, kwargs) {
+    return ('' + str)
 
+    .replace(/&/g, '&amp;')
 
+    .replace(/</g, '&lt;') // DEC=> &#60; HEX=> &#x3c; Entity=> &lt;
+
+    .replace(/>/g, '&gt;')
+
+    .replace(/"/g, '&quot;')
+
+    .replace(/'/g, '&#x27;') // &apos; 不推荐，因为它不在HTML规范中
+
+    .replace(/\//g, '&#x2F;');
+
+};
 
 
 
