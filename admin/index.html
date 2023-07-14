@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -139,6 +140,31 @@
                         <div class="mdui-card">
                             <div class="mdui-card-header">
                                 <div class="mdui-card-header-title" id="item">
+                                    <h3><i class="mdui-icon material-icons mdui-list-item-icon">account_circle</i>
+                                        <a href="#">用户查询</a></h3>
+                                </div>
+                            </div>
+                            <div class="mdui-card-content">
+                                <!-- <p id="status" style="margin: -10px 0px 0px 0px;">s</p> -->
+                                <div class="mdui-textfield">
+                                    <label class="mdui-textfield-label">凭证</label>
+                                    <textarea class="mdui-textfield-input" maxlength="50" id="account"></textarea>
+                                </div>
+                                <p id="status" style="margin: -10px 0px 0px 0px;">类型</p>
+                                <select class="mdui-select" id="account_choice" mdui-select="{position: 'top'}">
+                                    <option value="1">QQ</option>
+                                    <option value="2">游戏名（java）</option>
+                                    <option value="3">游戏名（be）</option>>
+                                  </select>
+                            </div>
+
+                            <div class="mdui-card-actions mdui-float-right">
+                                <button id="account-enter" class="mdui-btn mdui-ripple">查询</button>
+                            </div>
+                        </div>
+                        <div class="mdui-card">
+                            <div class="mdui-card-header">
+                                <div class="mdui-card-header-title" id="item">
                                     <h3><i class="mdui-icon material-icons mdui-list-item-icon">account_balance</i>
                                         <a href="#">封禁</a></h3>
                                 </div>
@@ -170,7 +196,7 @@
                             </div>
                         </div>
 
-                        <div class="mdui-card">
+                        <!-- <div class="mdui-card">
                             <div class="mdui-card-header">
                                 <div class="mdui-card-header-title" id="item">
                                     <h3><i class="mdui-icon material-icons mdui-list-item-icon">notifications_none</i>
@@ -180,7 +206,7 @@
                             <div class="mdui-card-content">
                                 <p id="status" style="margin: -10px 0px 0px 0px;"></p>
                             </div>
-                        </div>
+                        </div> -->
 
                     </div>
                     <div id="wtf" style="display: none;">
@@ -204,12 +230,12 @@
                     <div class="mdui-dialog-title" id="dialog-title"></div>
                     <div class="mdui-dialog-content" id="dialog-content"></div>
                     <div class="mdui-dialog-actions">
-                        <button class="mdui-btn mdui-ripple" mdui-dialog-confirm>erase</button>
+                        <button class="mdui-btn mdui-ripple" mdui-dialog-confirm>关闭</button>
                     </div>
                 </div>
                 <!-- 到此 -->
                 <footer id="footer">
-    <span>版权所有 © <a href="https://www.hzchu.top/">Thun888</a> 2023.Version:23/7/14[1]</layout></span>
+    <span>版权所有 © <a href="https://www.hzchu.top/">Thun888</a> 2023.Version:23/7/14[2]</layout></span>
 </footer>
 <style>
     body {
