@@ -45,6 +45,10 @@
             <i class="mdui-list-item-icon mdui-icon material-icons">photo</i>
             <div class="mdui-list-item-content">相册</div>
         </a>
+        <!-- <a href="/fakeplayer/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">rowing</i>
+            <div class="mdui-list-item-content">假人管理</div>
+        </a> -->
         <a href="/place/" class="mdui-list-item mdui-ripple">
             <i class="mdui-list-item-icon mdui-icon material-icons">place</i>
             <div class="mdui-list-item-content">有用の坐标</div>
@@ -140,7 +144,29 @@
                                 </div>
                             </div>
                             <div class="mdui-card-content">
-                                <p id="status" style="margin: -10px 0px 0px 0px;"></p>
+                                <!-- <p id="status" style="margin: -10px 0px 0px 0px;">s</p> -->
+                                <div class="mdui-textfield">
+                                    <label class="mdui-textfield-label">游戏名</label>
+                                    <textarea class="mdui-textfield-input" maxlength="30" id="ban_gamename"></textarea>
+                                </div>
+                                <p id="status" style="margin: -10px 0px 0px 0px;">快速选择原因</p>
+                                <select class="mdui-select" id="ban_choice" mdui-select>
+                                    <option value="1">作弊</option>
+                                    <option value="2">故意破坏</option>
+                                    <option value="3">广告和垃圾信息</option>
+                                    <option value="4">辱骂和骚扰</option>
+                                    <option value="5">破坏服务器稳定性</option>
+                                    <option value="6">多账号滥用</option>
+                                  </select>
+                                <div class="mdui-textfield">
+                                    <label class="mdui-textfield-label">原因</label>
+                                    <textarea class="mdui-textfield-input" maxlength="100" id="ban_reason"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="mdui-card-actions mdui-float-right">
+                                <button id="deban-enter" class="mdui-btn mdui-ripple">解封</button>
+                                <button id="ban-enter" class="mdui-btn mdui-ripple">确认封禁</button>
                             </div>
                         </div>
 
@@ -148,7 +174,7 @@
                             <div class="mdui-card-header">
                                 <div class="mdui-card-header-title" id="item">
                                     <h3><i class="mdui-icon material-icons mdui-list-item-icon">notifications_none</i>
-                                        <a href="#">公告</a></h3>
+                                        <a href="#">发布公告</a></h3>
                                 </div>
                             </div>
                             <div class="mdui-card-content">
@@ -174,6 +200,13 @@
                     <script src="/js/pages/admin.js"></script>
                 </div>
                 <link rel="stylesheet" href="/css/admin.css">
+                <div class="mdui-dialog" id="dialog">
+                    <div class="mdui-dialog-title" id="dialog-title"></div>
+                    <div class="mdui-dialog-content" id="dialog-content"></div>
+                    <div class="mdui-dialog-actions">
+                        <button class="mdui-btn mdui-ripple" mdui-dialog-confirm>erase</button>
+                    </div>
+                </div>
                 <!-- 到此 -->
                 <footer id="footer">
     <span>版权所有 © <a href="https://www.hzchu.top/">Thun888</a> 2023.Version:23/7/11</layout></span>
