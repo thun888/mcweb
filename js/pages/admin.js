@@ -219,7 +219,15 @@ document.getElementById("account-enter").onclick = function() {
                 <tr>
                     <td>绑定时间</td>
                     <td>` + response.bind_time + `</td>
-                </tr> 
+                </tr>
+                <tr>
+                <td>IP</td>
+                <td>` + response.ip + `</td>
+                </tr>
+                <tr>
+                <td>IP归属地：</td>
+                <td>` + response.country + `，` + response.city + `</td>
+                </tr>  
                   </tbody>
                 </table>
               </div>`
