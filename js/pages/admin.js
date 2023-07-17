@@ -31,7 +31,7 @@ if (document.cookie.indexOf('token') < 0) {
                 document.getElementById("fuction").style.display = "none";
                 document.getElementById("wtf").style.display = "unset";
                 mdui.snackbar({
-                    message: msg
+                    message: response.msg
                 });
             }
 
