@@ -81,7 +81,28 @@
                                 <button id="ban-enter" class="mdui-btn mdui-ripple">确认封禁</button>
                             </div>
                         </div>
-
+                        <div class="mdui-card">
+                            <div class="mdui-card-header">
+                                <div class="mdui-card-header-title" id="item">
+                                    <h3><i class="mdui-icon material-icons mdui-list-item-icon">assessment</i>
+                                        <a href="#">性能调节</a></h3>
+                                </div>
+                            </div>
+                            <div class="mdui-card-content">
+                                <!-- <p id="status" style="margin: -10px 0px 0px 0px;">s</p> -->
+                                <p id="status" style="margin: -10px 0px 0px 0px;">选择电源计划</p>
+                                <select class="mdui-select" id="powerplan_choice" mdui-select>
+                                    <option value="1">平衡</option>
+                                    <option value="2">高性能</option>
+                                    <option value="3">节能</option>
+                                  </select>
+                            </div>
+                            <div class="mdui-card-content">「该功能会覆盖自动调节30分钟」</div>
+                            <div class="mdui-card-actions mdui-float-right">
+                                <button id="unpower-enter" class="mdui-btn mdui-ripple">取消覆盖配置</button>
+                                <button id="power-enter" class="mdui-btn mdui-ripple">确认</button>
+                            </div>
+                        </div>
                         <!-- <div class="mdui-card">
                             <div class="mdui-card-header">
                                 <div class="mdui-card-header-title" id="item">

@@ -76,13 +76,15 @@
                     document.getElementById("titletext").innerHTML = "峰间云海|首页";
 
                     function updateStatus() {
-                        $.get('https://mccheck.hzchu.top/check?tag=1', function(data) {
+                        $.get('https://mcweb-api.hzchu.top/user/check?tag=2', function(data) {
                             if (data.msg) {
                                 document.getElementById("status").innerHTML = `API返回错误：${data.msg}`;
                             } else {
                                 online = data.online;
-                                latency = data.latency;
-                                document.getElementById("status").innerHTML = `在线/最大玩家:${online} | 延迟:${latency}ms`;
+                                //latency = data.latency;
+                                player_list = data.player_list
+                                version = data.version
+                                document.getElementById("status").innerHTML = `在线/最大玩家：${online} | 玩家列表：${player_list}<br>版本：${version}`;
                             }
 
                         });
