@@ -117,14 +117,60 @@ document.getElementById("ban-enter").onclick = function() {
     })
 }
 document.getElementById("deban-enter").onclick = function() {
-    var inst = new mdui.Dialog('#dialog');
+        var inst = new mdui.Dialog('#dialog');
 
+        $.ajax({
+            url: 'https://mcweb-api.hzchu.top/admin/debanplayer',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                playername: ban_player.value,
+                token: getCookie('token')
+            }),
+            success: function(response) {
+                var code = response.code;
+                console.log(code);
+
+                // 处理返回的code和msg
+                if (code === 0) {
+                    document.getElementById("dialog-title").innerText = "返回结果："
+                    document.getElementById("dialog-content").innerText = response.response
+                    inst.open();
+                } else {
+                    document.getElementById("dialog-title").innerText = "处理失败！返回结果："
+                    document.getElementById("dialog-content").innerText = response.msg
+                    inst.open();
+
+                }
+
+            }
+        })
+    }
+    //电源调节部分
+var powerplan_choice = document.getElementById("powerplan_choice");
+
+document.getElementById("power-enter").onclick = function() {
+    var inst = new mdui.Dialog('#dialog');
+    var selectedValue = powerplan_choice.value;
+
+    // 根据选项值执行相应的操作
+    switch (selectedValue) {
+        case '1':
+            plan = "BALANCE"
+            break;
+        case '2':
+            plan = "HIGH_PERFORMANCE"
+            break;
+        case '3':
+            plan = "ENERGY_SAVER"
+            break;
+    }
     $.ajax({
-        url: 'https://mcweb-api.hzchu.top/admin/debanplayer',
+        url: 'https://mcweb-api.hzchu.top/admin/changepower',
         type: 'POST',
         contentType: 'application/json',
         data: JSON.stringify({
-            playername: ban_player.value,
+            plan: plan,
             token: getCookie('token')
         }),
         success: function(response) {
@@ -134,7 +180,36 @@ document.getElementById("deban-enter").onclick = function() {
             // 处理返回的code和msg
             if (code === 0) {
                 document.getElementById("dialog-title").innerText = "返回结果："
-                document.getElementById("dialog-content").innerText = response.response
+                document.getElementById("dialog-content").innerText = response.msg
+                inst.open();
+            } else {
+                document.getElementById("dialog-title").innerText = "处理失败！返回结果："
+                document.getElementById("dialog-content").innerText = response.msg
+                inst.open();
+
+            }
+
+        }
+    })
+}
+document.getElementById("unpower-enter").onclick = function() {
+    var inst = new mdui.Dialog('#dialog');
+
+    $.ajax({
+        url: 'https://mcweb-api.hzchu.top/admin/unpower',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({
+            token: getCookie('token')
+        }),
+        success: function(response) {
+            var code = response.code;
+            console.log(code);
+
+            // 处理返回的code和msg
+            if (code === 0) {
+                document.getElementById("dialog-title").innerText = "返回结果："
+                document.getElementById("dialog-content").innerText = response.msg
                 inst.open();
             } else {
                 document.getElementById("dialog-title").innerText = "处理失败！返回结果："

@@ -122,32 +122,70 @@
         </a>
     </div>
 </div>
-            <div id="card-container">
+            <link rel="stylesheet" href="/css/github-markdown.min.css">
+
+            <div class="mdui-container">
                 <div class="mdui-card">
-                    <div class="mdui-card-content">
-                        <p>将跳转到mcmap.hzchu.top</p>
-                    </div>
-                    <div class="mdui-typo-display-2-opacity mdui-text-center" id="countdown">3</div>
+
+                    <div id="content"></div>
                 </div>
-            </div>
-            <style>
-                #card-container {
-                    width: 80%;
-                    margin: 30px auto 0 auto;
-                }
-            </style>
-            <script>
-                var countdownEl = document.getElementById('countdown');
-                var count = 3;
-                var timer = setInterval(function() {
-                    count--;
-                    countdownEl.innerHTML = count;
-                    if (count === 0) {
-                        clearInterval(timer);
-                        window.location.href = 'https://mcmap.hzchu.top';
+                <!--代码块高亮插件-->
+                <link href="/css/monokai_sublime.min.css" rel="stylesheet">
+                <script src="/js/highlight.min.js"></script>
+                <script>
+                    hljs.initHighlightingOnLoad();
+                </script>
+
+                <!--解析markdown的插件-->
+                <script src="/js/marked.min.js"></script>
+                <script>
+                    window.onload = function() {
+                            let rendererMD = new marked.Renderer();
+                            let markdownString = '';
+                            $.ajax({
+                                type: 'get',
+                                url: '/md/changelog.md',
+                                success: function(res) {
+                                    markdownString = res
+                                    marked.setOptions({
+                                        renderer: rendererMD,
+                                        gfm: true,
+                                        tables: true,
+                                        breaks: false,
+                                        pedantic: false,
+                                        sanitize: false,
+                                        smartLists: true,
+                                        smartypants: false,
+                                        highlight: function(code) {
+                                            return hljs.highlightAuto(code).value;
+                                        }
+                                    });
+                                    document.getElementById('content').innerHTML = marked.parse(markdownString);
+                                    //在文档加载后为元素添加属性
+                                    document.querySelectorAll('table').forEach(function(el) {
+                                        el.setAttribute('border', '1')
+                                    })
+                                    document.querySelectorAll('code').forEach(function(el) {
+                                        //缺少这个类代码块没有背景
+                                        el.classList.add('hljs')
+                                    })
+                                }
+                            })
+                        }
+                        //来自 https://www.jianshu.com/p/cc3ca0b60041
+                </script>
+                <style>
+                    #content {
+                        margin: 16px;
                     }
-                }, 1000);
-            </script>
+                    
+                    .mdui-card {
+                        width: 100%;
+                        margin: 30px auto 0 auto;
+                        border-radius: 10px;
+                    }
+                </style>
+            </div>
             <footer id="footer">
     <span>Made by <a href="https://www.hzchu.top/">Thun888</a>.Version:23/7/17[1]</layout></span>
 </footer>
