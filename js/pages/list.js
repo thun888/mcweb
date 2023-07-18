@@ -200,3 +200,4 @@ function getLevel(exp) {
     // 返回经验等级
     return level;
 }
+document.getElementById("titletext").innerHTML = "峰间云海|排行榜";
