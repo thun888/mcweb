@@ -1,62 +1,232 @@
-<div class="mdui-container">
-    <h2 class="mdui-text-center">服务器状态</h2>
-    <div class="mdui-card">
-        <div class="mdui-card-header">
-            <div class="mdui-card-header-title"><i class="mdui-list-item-icon mdui-icon material-icons">memory</i> CPU使用率</div>
-            <div class="mdui-card-header-subtitle" id="cpu-percentage"></div>
-        </div>
-        <div class="mdui-card-content">
-            <div class="mdui-progress" id="cpu-progress">
-                <div class="mdui-progress-determinate" style="width: 0%"></div>
-            </div>
-        </div>
-    </div>
-    <div class="mdui-card">
-        <div class="mdui-card-header">
-            <div class="mdui-card-header-title"><i class="mdui-list-item-icon mdui-icon material-icons">straighten</i> 内存占用</div>
-            <div class="mdui-card-header-subtitle" id="mem-percentage"></div>
-        </div>
-        <div class="mdui-card-content">
-            <div class="mdui-progress" id="mem-progress">
-                <div class="mdui-progress-determinate" style="width: 0%"></div>
-            </div>
-        </div>
-    </div>
-    <div class="mdui-card">
-        <div class="mdui-card-header">
-            <div class="mdui-card-header-title"><i class="mdui-list-item-icon mdui-icon material-icons">select_all</i></i> 已运行实例</div>
-            <div class="mdui-card-header-subtitle" id="instance"></div>
-        </div>
-        <div class="mdui-card-actions">
-            <div class="mdui-btn-group">
-                <a href="https://nodepanels.com/share/server?auth=bb93524466e54281b3fea30d355fbae0&key=ZjE1NjY4YmRlMThiNDc0NGEwZWJiOWY0Mzg2ZDE4M2R8MjIzODM0Mjk0N0BxcS5jb218OXJqb2E4amxuZ3pi" class="mdui-btn mdui-ripple mdui-float-left">查看服务器具体信息</a>
-                <a href="https://servers.hzchu.top/" class="mdui-btn mdui-ripple mdui-float-right">查看历史详情</a>
-            </div>
-        </div>
+<!DOCTYPE html>
+<html>
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>峰间云海</title>
+    <link rel="stylesheet" href="/css/mdui.css">
+    <script src="/js/mdui.js"></script>
+    <script src="/js/jquery.min.js"></script>
 
-
-    </div>
-
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
     <script>
-        function updateStatus() {
-            $.get('https://mcweb-api.hzchu.top/server/status', function(data) {
-                $('#cpu-progress .mdui-progress-determinate').css('width', data.usage.cpu + '%');
-                $('#mem-progress .mdui-progress-determinate').css('width', data.usage.mem + '%');
-                $('#cpu-percentage').text(data.usage.cpu.toFixed(1) + '%');
-                $('#mem-percentage').text(data.usage.mem.toFixed(1) + '%');
-                $('#instance').text(data.instance.running + ' / ' + data.instance.total);
-            });
-        }
-
-        $(function() {
-            // 初次加载状态
-            updateStatus();
-
-            // 每15秒刷新状态
-            setInterval(function() {
-                updateStatus();
-            }, 15000);
-        });
-        document.getElementById("titletext").innerHTML = "峰间云海|状态";
+        LA.init({
+            id: "K7zTzBSVqAfJ71mY",
+            ck: "K7zTzBSVqAfJ71mY"
+        })
     </script>
+</head>
+
+<body class="mdui-theme-primary-blue-grey mdui-theme-accent-blue">
+    <div class="mdui-drawer mdui-drawer-close" id="sidebar">
+    <div class="mdui-list" mdui-collapse="{accordion: true}">
+        <a href="/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">home</i>
+            <div class="mdui-list-item-content">首页</div>
+        </a>
+        <div class="mdui-collapse-item">
+            <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">map</i>
+                <div class="mdui-list-item-content">卫星地图</div>
+                <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+            </div>
+            <ul class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                <a href="https://mcmap.hzchu.top/">
+                    <li class="mdui-list-item mdui-ripple">地图</li>
+                </a>
+                <a href="https://share.hzchu.top/MC/dynmap数据/">
+                    <li class="mdui-list-item mdui-ripple">数据存档</li>
+                </a>
+            </ul>
+        </div>
+        <a href="/chatlist/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">chat</i>
+            <div class="mdui-list-item-content">聊天记录</div>
+        </a>
+        <!-- <a href="/bansearch/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">account_balance</i>
+            <div class="mdui-list-item-content">小黑屋</div>
+        </a> -->
+        <a href="/photo/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">photo</i>
+            <div class="mdui-list-item-content">相册</div>
+        </a>
+        <!-- <a href="/fakeplayer/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">rowing</i>
+            <div class="mdui-list-item-content">假人管理</div>
+        </a> -->
+        <a href="/place/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">place</i>
+            <div class="mdui-list-item-content">有用の坐标</div>
+        </a>
+        <a href="/list/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">format_list_numbered</i>
+            <div class="mdui-list-item-content">排行榜</div>
+        </a>
+        <!-- <a href="/achievements/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">events</i>
+            <div class="mdui-list-item-content">成就</div>
+        </a> -->
+        <a href="https://blog.hzchu.top/wiki/fcloud/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">chrome_reader_mode</i>
+            <div class="mdui-list-item-content">文档</div>
+        </a>
+        <div class="mdui-collapse-item">
+            <div class="mdui-collapse-item-header mdui-list-item mdui-ripple">
+                <i class="mdui-list-item-icon mdui-icon material-icons">more_horiz</i>
+                <div class="mdui-list-item-content">更多</div>
+                <i class="mdui-collapse-item-arrow mdui-icon material-icons">keyboard_arrow_down</i>
+            </div>
+            <ul class="mdui-collapse-item-body mdui-list mdui-list-dense">
+                <a href="/admin/">
+                    <li class="mdui-list-item mdui-ripple">管理</li>
+                </a>
+                <a href="/status/">
+                    <li class="mdui-list-item mdui-ripple">服务器状态</li>
+                </a>
+            </ul>
+
+        </div>
+        <a href="https://blog.hzchu.top/wiki/fcloud/about/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">info</i>
+            <div class="mdui-list-item-content">关于</div>
+        </a>
+        <a href="/changelog/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">library_books</i>
+            <div class="mdui-list-item-content">更新日志</div>
+        </a>
+        <a href="/fb/" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">feedback</i>
+            <div class="mdui-list-item-content">反馈</div>
+        </a>
+        <a href="https://jq.qq.com/?_wv=1027&k=erVXhRym" class="mdui-list-item mdui-ripple">
+            <i class="mdui-list-item-icon mdui-icon material-icons">group</i>
+            <div class="mdui-list-item-content">QQ群入口</div>
+        </a>
+    </div>
+</div>
+        <div class="mdui-appbar">
+    <div class="mdui-toolbar mdui-color-teal mdui-appbar-scroll-hide">
+        <a href="javascript:;" class="mdui-btn mdui-btn-icon" mdui-drawer="{target: '#sidebar'}">
+            <i class="mdui-icon material-icons">menu</i>
+        </a>
+        <a href="https://mcweb.hzchu.top" class="mdui-typo-headline" id="titletext">峰间云海</a>
+        <div class="mdui-toolbar-spacer"></div>
+        <a href="/" class="mdui-btn mdui-btn-icon">
+            <i class="mdui-icon material-icons">home</i>
+        </a>
+        <a href="javascript:location.reload();" class="mdui-btn mdui-btn-icon">
+            <i class="mdui-icon material-icons">refresh</i>
+        </a>
+    </div>
+</div>
+            <div class="mdui-container">
+                <h2 class="mdui-text-center">服务器状态</h2>
+                <div class="mdui-card">
+                    <div class="mdui-card-header">
+                        <div class="mdui-card-header-title"><i class="mdui-list-item-icon mdui-icon material-icons">memory</i> CPU使用率</div>
+                        <div class="mdui-card-header-subtitle" id="cpu-percentage"></div>
+                    </div>
+                    <div class="mdui-card-content">
+                        <div class="mdui-progress" id="cpu-progress">
+                            <div class="mdui-progress-determinate" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mdui-card">
+                    <div class="mdui-card-header">
+                        <div class="mdui-card-header-title"><i class="mdui-list-item-icon mdui-icon material-icons">straighten</i> 内存占用</div>
+                        <div class="mdui-card-header-subtitle" id="mem-percentage"></div>
+                    </div>
+                    <div class="mdui-card-content">
+                        <div class="mdui-progress" id="mem-progress">
+                            <div class="mdui-progress-determinate" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mdui-card">
+                    <div class="mdui-card-header">
+                        <div class="mdui-card-header-title"><i class="mdui-list-item-icon mdui-icon material-icons">select_all</i></i> 已运行实例</div>
+                        <div class="mdui-card-header-subtitle" id="instance"></div>
+                    </div>
+                    <div class="mdui-card-actions">
+                        <div class="mdui-btn-group">
+                            <a href="https://nodepanels.com/share/server?auth=bb93524466e54281b3fea30d355fbae0&key=ZjE1NjY4YmRlMThiNDc0NGEwZWJiOWY0Mzg2ZDE4M2R8MjIzODM0Mjk0N0BxcS5jb218OXJqb2E4amxuZ3pi" class="mdui-btn mdui-ripple mdui-float-left">查看服务器具体信息</a>
+                            <a href="https://servers.hzchu.top/" class="mdui-btn mdui-ripple mdui-float-right">查看历史详情</a>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                <script>
+                    function updateStatus() {
+                        $.get('https://mcweb-api.hzchu.top/server/status', function(data) {
+                            $('#cpu-progress .mdui-progress-determinate').css('width', data.usage.cpu + '%');
+                            $('#mem-progress .mdui-progress-determinate').css('width', data.usage.mem + '%');
+                            $('#cpu-percentage').text(data.usage.cpu.toFixed(1) + '%');
+                            $('#mem-percentage').text(data.usage.mem.toFixed(1) + '%');
+                            $('#instance').text(data.instance.running + ' / ' + data.instance.total);
+                        });
+                    }
+
+                    $(function() {
+                        // 初次加载状态
+                        updateStatus();
+
+                        // 每15秒刷新状态
+                        setInterval(function() {
+                            updateStatus();
+                        }, 15000);
+                    });
+                    document.getElementById("titletext").innerHTML = "峰间云海|状态";
+                </script>
+            </div>
+            <footer id="footer">
+    <span>Made by <a href="https://www.hzchu.top/">Thun888</a>.Version:23/7/17[1]</layout></span>
+</footer>
+<style>
+    body {
+        --bg-light: url("/img/backgroud.webp");
+        --bg-dark: url("/img/backgroud-dark.webp");
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+    }
+    
+    @media (prefers-color-scheme: light) {
+        body {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)), var(--bg-light);
+        }
+    }
+    
+    @media (prefers-color-scheme: dark) {
+        body {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), var(--bg-dark);
+        }
+    }
+    
+    @font-face {
+        font-family: Roboto;
+        src: url(/fonts/roboto/Roboto-Medium.woff2) format('woff2')
+    }
+    
+    .mdui-card-header-title {
+        margin-left: 15px;
+    }
+    
+    #footer {
+        text-align: center;
+        bottom: 0;
+        width: 100%;
+        height: 30px;
+        background: rgba(97, 104, 90, 0.337);
+        line-height: 2;
+        z-index: 999;
+        margin-top: 40px;
+    }
+</style>
+</body>
