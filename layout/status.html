@@ -1,5 +1,67 @@
 <layout html head>
     <layout html 侧边栏>
         <layout html 顶栏>
-            <layout html status>
-                <layout html footer>
+            <div class="mdui-container">
+                <h2 class="mdui-text-center">服务器状态</h2>
+                <div class="mdui-card">
+                    <div class="mdui-card-header">
+                        <div class="mdui-card-header-title"><i class="mdui-list-item-icon mdui-icon material-icons">memory</i> CPU使用率</div>
+                        <div class="mdui-card-header-subtitle" id="cpu-percentage"></div>
+                    </div>
+                    <div class="mdui-card-content">
+                        <div class="mdui-progress" id="cpu-progress">
+                            <div class="mdui-progress-determinate" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mdui-card">
+                    <div class="mdui-card-header">
+                        <div class="mdui-card-header-title"><i class="mdui-list-item-icon mdui-icon material-icons">straighten</i> 内存占用</div>
+                        <div class="mdui-card-header-subtitle" id="mem-percentage"></div>
+                    </div>
+                    <div class="mdui-card-content">
+                        <div class="mdui-progress" id="mem-progress">
+                            <div class="mdui-progress-determinate" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mdui-card">
+                    <div class="mdui-card-header">
+                        <div class="mdui-card-header-title"><i class="mdui-list-item-icon mdui-icon material-icons">select_all</i></i> 已运行实例</div>
+                        <div class="mdui-card-header-subtitle" id="instance"></div>
+                    </div>
+                    <div class="mdui-card-actions">
+                        <div class="mdui-btn-group">
+                            <a href="https://nodepanels.com/share/server?auth=bb93524466e54281b3fea30d355fbae0&key=ZjE1NjY4YmRlMThiNDc0NGEwZWJiOWY0Mzg2ZDE4M2R8MjIzODM0Mjk0N0BxcS5jb218OXJqb2E4amxuZ3pi" class="mdui-btn mdui-ripple mdui-float-left">查看服务器具体信息</a>
+                            <a href="https://servers.hzchu.top/" class="mdui-btn mdui-ripple mdui-float-right">查看历史详情</a>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                <script>
+                    function updateStatus() {
+                        $.get('https://mcweb-api.hzchu.top/server/status', function(data) {
+                            $('#cpu-progress .mdui-progress-determinate').css('width', data.usage.cpu + '%');
+                            $('#mem-progress .mdui-progress-determinate').css('width', data.usage.mem + '%');
+                            $('#cpu-percentage').text(data.usage.cpu.toFixed(1) + '%');
+                            $('#mem-percentage').text(data.usage.mem.toFixed(1) + '%');
+                            $('#instance').text(data.instance.running + ' / ' + data.instance.total);
+                        });
+                    }
+
+                    $(function() {
+                        // 初次加载状态
+                        updateStatus();
+
+                        // 每15秒刷新状态
+                        setInterval(function() {
+                            updateStatus();
+                        }, 15000);
+                    });
+                    document.getElementById("titletext").innerHTML = "峰间云海|状态";
+                </script>
+            </div>
+            <layout html footer>
