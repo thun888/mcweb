@@ -86,6 +86,9 @@
                 <a href="/status/">
                     <li class="mdui-list-item mdui-ripple">服务器状态</li>
                 </a>
+                <!-- <a href="/selfcheck/">
+                    <li class="mdui-list-item mdui-ripple">自检</li>
+                </a> -->
             </ul>
 
         </div>
@@ -123,71 +126,66 @@
     </div>
 </div>
             <!-- 到此 -->
-            <!-- CSS -->
-<link href="https://cdn.bootcdn.net/ajax/libs/artalk/2.5.4/Artalk.css" rel="stylesheet">
 
-<!-- JS -->
-<script src="https://cdn.bootcdn.net/ajax/libs/artalk/2.5.4/Artalk.js"></script>
-
-                <div class="mdui-container">
+            <div class="mdui-container">
+                <div class="mdui-card">
+                    <div class="mdui-card-header">
+                        <div class="mdui-card-header-title" id="item">
+                            <h3><i class="mdui-icon material-icons mdui-list-item-icon">golf_course</i>
+                                <a href="#">Token</a></h3>
+                        </div>
+                    </div>
+                    <div class="mdui-card-content">
+                        <div style="margin: -10px 0px 0px 0px;" class="mdui-textfield">
+                            <label class="mdui-textfield-label">Token</label>
+                            <input class="mdui-textfield-input" type="text" id="token" />
+                        </div>
+                    </div>
+                    <div class="mdui-card-actions mdui-float-right">
+                        <button id="token-enter" class="mdui-btn mdui-ripple">Enter</button>
+                    </div>
+                </div>
+                <div id="fuction">
                     <div class="mdui-card">
                         <div class="mdui-card-header">
                             <div class="mdui-card-header-title" id="item">
-                                <h3><i class="mdui-icon material-icons mdui-list-item-icon">golf_course</i>
-                                    <a href="#">Token</a></h3>
+                                <h3><i class="mdui-icon material-icons mdui-list-item-icon">account_circle</i>
+                                    <a href="#">用户查询</a></h3>
                             </div>
                         </div>
                         <div class="mdui-card-content">
-                            <div style="margin: -10px 0px 0px 0px;" class="mdui-textfield">
-                                <label class="mdui-textfield-label">Token</label>
-                                <input class="mdui-textfield-input" type="text" id="token" />
+                            <!-- <p id="status" style="margin: -10px 0px 0px 0px;">s</p> -->
+                            <div class="mdui-textfield">
+                                <label class="mdui-textfield-label">凭证</label>
+                                <textarea class="mdui-textfield-input" maxlength="50" id="account"></textarea>
                             </div>
-                        </div>
-                        <div class="mdui-card-actions mdui-float-right">
-                            <button id="token-enter" class="mdui-btn mdui-ripple">Enter</button>
-                        </div>
-                    </div>
-                    <div id="fuction">
-                        <div class="mdui-card">
-                            <div class="mdui-card-header">
-                                <div class="mdui-card-header-title" id="item">
-                                    <h3><i class="mdui-icon material-icons mdui-list-item-icon">account_circle</i>
-                                        <a href="#">用户查询</a></h3>
-                                </div>
-                            </div>
-                            <div class="mdui-card-content">
-                                <!-- <p id="status" style="margin: -10px 0px 0px 0px;">s</p> -->
-                                <div class="mdui-textfield">
-                                    <label class="mdui-textfield-label">凭证</label>
-                                    <textarea class="mdui-textfield-input" maxlength="50" id="account"></textarea>
-                                </div>
-                                <p id="status" style="margin: -10px 0px 0px 0px;">类型</p>
-                                <select class="mdui-select" id="account_choice" mdui-select="{position: 'top'}">
+                            <p id="status" style="margin: -10px 0px 0px 0px;">类型</p>
+                            <select class="mdui-select" id="account_choice" mdui-select="{position: 'top'}">
                                     <option value="1">QQ</option>
                                     <option value="2">游戏名（java）</option>
                                     <option value="3">游戏名（be）</option>>
                                   </select>
-                            </div>
+                        </div>
 
-                            <div class="mdui-card-actions mdui-float-right">
-                                <button id="account-enter" class="mdui-btn mdui-ripple">查询</button>
+                        <div class="mdui-card-actions mdui-float-right">
+                            <button id="account-enter" class="mdui-btn mdui-ripple">查询</button>
+                        </div>
+                    </div>
+                    <div class="mdui-card">
+                        <div class="mdui-card-header">
+                            <div class="mdui-card-header-title" id="item">
+                                <h3><i class="mdui-icon material-icons mdui-list-item-icon">account_balance</i>
+                                    <a href="#">封禁</a></h3>
                             </div>
                         </div>
-                        <div class="mdui-card">
-                            <div class="mdui-card-header">
-                                <div class="mdui-card-header-title" id="item">
-                                    <h3><i class="mdui-icon material-icons mdui-list-item-icon">account_balance</i>
-                                        <a href="#">封禁</a></h3>
-                                </div>
+                        <div class="mdui-card-content">
+                            <!-- <p id="status" style="margin: -10px 0px 0px 0px;">s</p> -->
+                            <div class="mdui-textfield">
+                                <label class="mdui-textfield-label">游戏名</label>
+                                <textarea class="mdui-textfield-input" maxlength="30" id="ban_gamename"></textarea>
                             </div>
-                            <div class="mdui-card-content">
-                                <!-- <p id="status" style="margin: -10px 0px 0px 0px;">s</p> -->
-                                <div class="mdui-textfield">
-                                    <label class="mdui-textfield-label">游戏名</label>
-                                    <textarea class="mdui-textfield-input" maxlength="30" id="ban_gamename"></textarea>
-                                </div>
-                                <p id="status" style="margin: -10px 0px 0px 0px;">快速选择原因</p>
-                                <select class="mdui-select" id="ban_choice" mdui-select>
+                            <p id="status" style="margin: -10px 0px 0px 0px;">快速选择原因</p>
+                            <select class="mdui-select" id="ban_choice" mdui-select>
                                     <option value="1">作弊</option>
                                     <option value="2">故意破坏</option>
                                     <option value="3">广告和垃圾信息</option>
@@ -195,40 +193,40 @@
                                     <option value="5">破坏服务器稳定性</option>
                                     <option value="6">多账号滥用</option>
                                   </select>
-                                <div class="mdui-textfield">
-                                    <label class="mdui-textfield-label">原因</label>
-                                    <textarea class="mdui-textfield-input" maxlength="100" id="ban_reason"></textarea>
-                                </div>
-                            </div>
-
-                            <div class="mdui-card-actions mdui-float-right">
-                                <button id="deban-enter" class="mdui-btn mdui-ripple">解封</button>
-                                <button id="ban-enter" class="mdui-btn mdui-ripple">确认封禁</button>
+                            <div class="mdui-textfield">
+                                <label class="mdui-textfield-label">原因</label>
+                                <textarea class="mdui-textfield-input" maxlength="100" id="ban_reason"></textarea>
                             </div>
                         </div>
-                        <div class="mdui-card">
-                            <div class="mdui-card-header">
-                                <div class="mdui-card-header-title" id="item">
-                                    <h3><i class="mdui-icon material-icons mdui-list-item-icon">assessment</i>
-                                        <a href="#">性能调节</a></h3>
-                                </div>
+
+                        <div class="mdui-card-actions mdui-float-right">
+                            <button id="deban-enter" class="mdui-btn mdui-ripple">解封</button>
+                            <button id="ban-enter" class="mdui-btn mdui-ripple">确认封禁</button>
+                        </div>
+                    </div>
+                    <div class="mdui-card">
+                        <div class="mdui-card-header">
+                            <div class="mdui-card-header-title" id="item">
+                                <h3><i class="mdui-icon material-icons mdui-list-item-icon">assessment</i>
+                                    <a href="#">性能调节</a></h3>
                             </div>
-                            <div class="mdui-card-content">
-                                <!-- <p id="status" style="margin: -10px 0px 0px 0px;">s</p> -->
-                                <p id="status" style="margin: -10px 0px 0px 0px;">选择电源计划</p>
-                                <select class="mdui-select" id="powerplan_choice" mdui-select>
+                        </div>
+                        <div class="mdui-card-content">
+                            <!-- <p id="status" style="margin: -10px 0px 0px 0px;">s</p> -->
+                            <p id="status" style="margin: -10px 0px 0px 0px;">选择电源计划</p>
+                            <select class="mdui-select" id="powerplan_choice" mdui-select>
                                     <option value="1">平衡</option>
                                     <option value="2">高性能</option>
                                     <option value="3">节能</option>
                                   </select>
-                            </div>
-                            <div class="mdui-card-content">「该功能会覆盖自动调节30分钟」</div>
-                            <div class="mdui-card-actions mdui-float-right">
-                                <button id="unpower-enter" class="mdui-btn mdui-ripple">取消覆盖配置</button>
-                                <button id="power-enter" class="mdui-btn mdui-ripple">确认</button>
-                            </div>
                         </div>
-                        <!-- <div class="mdui-card">
+                        <div class="mdui-card-content">「该功能会覆盖自动调节30分钟」</div>
+                        <div class="mdui-card-actions mdui-float-right">
+                            <button id="unpower-enter" class="mdui-btn mdui-ripple">取消覆盖配置</button>
+                            <button id="power-enter" class="mdui-btn mdui-ripple">确认</button>
+                        </div>
+                    </div>
+                    <!-- <div class="mdui-card">
                             <div class="mdui-card-header">
                                 <div class="mdui-card-header-title" id="item">
                                     <h3><i class="mdui-icon material-icons mdui-list-item-icon">notifications_none</i>
@@ -240,33 +238,33 @@
                             </div>
                         </div> -->
 
-                    </div>
-                    <div id="wtf" style="display: none;">
-                        <div class="mdui-card">
-                            <div class="mdui-card-header">
-                                <div class="mdui-card-header-title" id="item">
-                                    <h3><i class="mdui-icon material-icons mdui-list-item-icon">flare</i>
-                                        <a href="#">这是什么</a></h3>
-                                </div>
-                            </div>
-                            <div class="mdui-card-content">
-                                <p style="margin: -10px 0px 0px 0px;">这是一个管理页面，需要相应token才可以食用</p>
-                                <p>对于管理员，需要私信Bot获取token</p>
+                </div>
+                <div id="wtf" style="display: none;">
+                    <div class="mdui-card">
+                        <div class="mdui-card-header">
+                            <div class="mdui-card-header-title" id="item">
+                                <h3><i class="mdui-icon material-icons mdui-list-item-icon">flare</i>
+                                    <a href="#">这是什么</a></h3>
                             </div>
                         </div>
-                    </div>
-                    <script src="/js/pages/admin.js"></script>
-                </div>
-                <link rel="stylesheet" href="/css/admin.css">
-                <div class="mdui-dialog" id="dialog">
-                    <div class="mdui-dialog-title" id="dialog-title"></div>
-                    <div class="mdui-dialog-content" id="dialog-content"></div>
-                    <div class="mdui-dialog-actions">
-                        <button class="mdui-btn mdui-ripple" mdui-dialog-confirm>关闭</button>
+                        <div class="mdui-card-content">
+                            <p style="margin: -10px 0px 0px 0px;">这是一个管理页面，需要相应token才可以食用</p>
+                            <p>对于管理员，需要私信Bot获取token</p>
+                        </div>
                     </div>
                 </div>
-                <!-- 到此 -->
-                <footer id="footer">
+                <script src="/js/pages/admin.js"></script>
+            </div>
+            <link rel="stylesheet" href="/css/admin.css">
+            <div class="mdui-dialog" id="dialog">
+                <div class="mdui-dialog-title" id="dialog-title"></div>
+                <div class="mdui-dialog-content" id="dialog-content"></div>
+                <div class="mdui-dialog-actions">
+                    <button class="mdui-btn mdui-ripple" mdui-dialog-confirm>关闭</button>
+                </div>
+            </div>
+            <!-- 到此 -->
+            <footer id="footer">
     <span>Made by <a href="https://www.hzchu.top/">Thun888</a>.Version:23/7/17[1]</layout></span>
 </footer>
 <style>
