@@ -2,7 +2,9 @@ import os
 import re
 from tqdm import tqdm
 import shutil
+import time
 
+starttime = ""
 def parse_layout(file_name, output_dir):
     with open(file_name, 'r', encoding='utf-8') as f:
         content = f.read()
@@ -15,15 +17,15 @@ def parse_layout(file_name, output_dir):
     for match in re.finditer(layout_tag_re, content):
         #print(filename)
         file_name = match.group(2)
-        aaa = match.group(1)
+        inputmode = match.group(1)
         #print(file_name)
-        #print(aaa)
+        #print(inputmode)
 
         # process content before the layout tag
         parsed_content += content[start_pos:match.start()]
         #print(parsed_content)
         # process the layout tag
-        parsed_content += layout(file_name, output_dir, aaa)
+        parsed_content += layout(file_name, output_dir, inputmode)
         #print(parsed_content)
         # update start position to after the layout tag
         start_pos = match.end()
@@ -34,13 +36,13 @@ def parse_layout(file_name, output_dir):
     return 
 
 
-def layout(file_name, output_dir, aaa):
+def layout(file_name, output_dir, inputmode):
     file_path = ''
-    if aaa == 'ejs':
+    if inputmode == 'ejs':
         file_path = os.path.join('layout', f"{file_name}.html")
-    elif aaa == 'html':
+    elif inputmode == 'html':
         file_path = os.path.join('layout','html', f"{file_name}.html")
-    elif aaa == 'value':
+    elif inputmode == 'value':
         with open('value.txt', 'r', encoding='utf-8') as f:
             lines = f.readlines()
             for line in lines:
@@ -49,9 +51,11 @@ def layout(file_name, output_dir, aaa):
                     # print(parts[1])
                     return parts[1]
             else:
-                raise ValueError(f'Could not find corresponding line in value.txt for aaa: {file_name}')
+                raise ValueError(f'Could not find corresponding line in value.txt for inputmode: {file_name}')
+    elif inputmode == 'time':
+        return starttime
     else:
-        raise ValueError(f'Invalid layout type: {aaa}')
+        raise ValueError(f'Invalid layout type: {inputmode}')
     
     with open(file_path, 'r', encoding='utf-8') as f:   
         content = f.read()
@@ -64,15 +68,15 @@ def layout(file_name, output_dir, aaa):
     for match in re.finditer(layout_tag_re, content):
         #print(filename)
         file_name = match.group(2)
-        aaa = match.group(1)
+        inputmode = match.group(1)
         #print(file_name)
-        #print(aaa)
+        #print(inputmode)
 
         # process content before the layout tag
         parsed_content += content[start_pos:match.start()]
         #print(parsed_content)
         # process the layout tag
-        parsed_content += layout(file_name, output_dir, aaa)
+        parsed_content += layout(file_name, output_dir, inputmode)
         #print(parsed_content)
         # update start position to after the layout tag
         start_pos = match.end()
@@ -91,6 +95,8 @@ def output(filename,content):
     elif filename == '404.html':
         output_dir = os.path.join('dist')
         file_name = '404.html'
+    elif filename == '侧边栏.html' or filename == '顶栏.html' or filename == 'head.html' or filename == 'footer.html' or filename == 'artalk.html':
+        return
     else:
         output_dir = os.path.join('dist',os.path.splitext(filename)[0])
     output_file_path = os.path.join(output_dir, file_name)
@@ -104,6 +110,8 @@ if __name__ == '__main__':
         shutil.rmtree('./dist')
     shutil.copytree('./asstes', './dist')
     layout_dir = 'layout'
+    starttime = time.strftime('%Y-%m-%d %H:%M:%S')
+    print(starttime)
     for dirpath, dirnames, filenames in os.walk(layout_dir):
         for filename in tqdm(filenames, desc='Processing layout files'):
             if filename.endswith('.html'):
