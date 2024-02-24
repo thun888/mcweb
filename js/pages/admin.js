@@ -273,11 +273,11 @@ document.getElementById("account-enter").onclick = function() {
                   <tbody>
                   <tr>
                     <td>游戏名（JAVA）</td>
-                    <td>` + xss(response.user_name) + `</td>
+                    <td>` + dexss(response.user_name) + `</td>
                   </tr>
                   <tr>
                     <td>游戏名（BE）</td>
-                    <td>` + xss(response.be_name) + `</td>
+                    <td>` + dexss(response.be_name) + `</td>
                   </tr>
                   <tr>
                     <td>所属用户组</td>
@@ -320,7 +320,7 @@ document.getElementById("account-enter").onclick = function() {
 }
 
 
-function xss(str, kwargs) {
+function dexss(str, kwargs) {
     return ('' + str)
 
     .replace(/&/g, '&amp;')
